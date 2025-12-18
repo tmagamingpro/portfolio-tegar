@@ -28,7 +28,7 @@ h1, h2, h3 {
 
 /* ID selector untuk footer */
 #footer {
-  background: #4b3f72;
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
   padding: 15px;
   color: white;
   text-align: center;
@@ -452,4 +452,77 @@ input[type="text"]:focus {
 .contact-link:hover {
   color: #6e40c9;
   text-decoration: underline;
+}
+
+.site-footer {
+  background: linear-gradient(90deg, #a18cd1, #ae5695);
+  color: #e5e7eb;
+  padding: 60px 20px 20px;
+  margin-top: 80px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.footer-container {
+  max-width: 1100px;
+  margin: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 40px;
+}
+
+.footer-box h3,
+.footer-box h4 {
+  color: #38bdf8;
+  margin-bottom: 15px;
+}
+
+.footer-box p {
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.footer-box ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-box ul li {
+  margin-bottom: 10px;
+}
+
+.footer-box ul li a {
+  color: #e5e7eb;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+.footer-box ul li a:hover {
+  color: #38bdf8;
+  padding-left: 5px;
+}
+
+.footer-social {
+  margin-top: 15px;
+}
+
+.footer-social a {
+  font-size: 1.3rem;
+  color: #e5e7eb;
+  margin-right: 15px;
+  transition: 0.3s;
+}
+
+.footer-social a:hover {
+  color: #38bdf8;
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin-top: 40px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 0.85rem;
+  color: #9ca3af;
 }
