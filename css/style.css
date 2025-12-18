@@ -1,0 +1,443 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Roboto:wght@300;400&display=swap');
+
+/* Element selector */
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f8f6ff; 
+  color: #333;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Group selector */
+h1, h2, h3 {
+  color: #4b3f72;
+  text-align: center;
+}
+
+/* ID selector untuk header */
+#header {
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  padding: 20px;
+  text-align: center;
+  color: white;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
+
+/* ID selector untuk footer */
+#footer {
+  background: #4b3f72;
+  padding: 15px;
+  color: white;
+  text-align: center;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+  margin-top: 40px;
+}
+
+/* Descendant selector */
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+/* d) Descendant selector = nav > ul > li > a */
+nav ul li a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+  padding: 8px 15px;
+  border-radius: 8px;
+}
+
+/* f) Pseudo-class selector = hover effect */
+nav ul li a:hover {
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  color: #fff;
+  transform: scale(1.05); 
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+/* f) Pseudo-class selector = active state */
+nav ul li a.active {
+  background: linear-gradient(135deg, #a6c1ee, #fbc2eb);
+  color: #fff;
+  border-radius: 8px;
+}
+
+/* b) Class selector = pakai . untuk styling kelompok */
+.home-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 60px 10%;
+  background: #f9f9f9;
+  color: #222;
+}
+
+.home-content {
+  max-width: 50%;
+}
+
+/* b) Class selector */
+.welcome {
+  background:linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: white;
+}
+
+/* a) Element selector */
+.home-content h1 {
+  font-size: 2.5rem;
+  margin: 20px 0;
+}
+
+/* b) Class selector */
+.highlight {
+  color: #a6c1ee; 
+}
+
+.home-content p {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+/* b) Class selector */
+.home-buttons {
+  margin-bottom: 20px;
+}
+
+/* b) Class selector */
+.btn {
+  display: inline-block;
+  padding: 10px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+/* b) Class selector */
+.btn-primary {
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  color: white;
+  margin-right: 10px;
+}
+
+/* f) Pseudo-class selector */
+.btn-primary:hover {
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+/* b) Class selector */
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #a18cd1;
+  color: #fbc2eb;
+}
+
+/* f) Pseudo-class selector */
+.btn-secondary:hover {
+  background: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  color: white;
+}
+
+/* b) Class selector */
+.social-icons a {
+  margin-right: 15px;
+  color: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+  font-size: 1.3rem;
+  transition: 0.3s;
+}
+
+/* f) Pseudo-class selector */
+.social-icons a:hover {
+  color: linear-gradient(135deg, #fbc2eb, #a6c1ee);
+}
+
+/* b) Class selector */
+.home-image {
+  text-align: center;
+  position: relative;
+}
+
+/* a) Element selector (img di dalam class) */
+.home-image img {
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  border: 3px solid #fbc2eb;
+  object-fit: cover;
+  box-shadow: 0 0 20px rgba(0,123,255,0.2);
+}
+
+/* b) Class selector */
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 40px;
+}
+
+/* b) Class selector */
+.card {
+  background: white;
+  border-radius: 15px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* f) Pseudo-class selector */
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.2);
+}
+
+/* g) Attribute selector = target elemen dengan attribute */
+input[type="text"] {
+  padding: 12px;
+  border: 2px solid #a18cd1;
+  border-radius: 10px;
+  outline: none;
+  width: 100%;
+  max-width: 300px;
+  transition: 0.3s;
+}
+
+/* f) Pseudo-class selector */
+input[type="text"]:focus {
+  border-color: #fbc2eb;
+  box-shadow: 0 0 8px #fbc2eb;
+}
+
+/* b) Class selector */
+.btn-glow {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: 600;
+  transition: 0.3s;
+  box-shadow: 0px 4px 12px rgba(161,140,209,0.5);
+}
+
+/* f) Pseudo-class selector */
+.btn-glow:hover {
+  transform: scale(1.05);
+  box-shadow: 0px 8px 20px rgba(161,140,209,0.8);
+}
+
+/* b) Class selector */
+.about-section {
+  padding: 40px 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.about-section h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.about-section .intro {
+  margin-bottom: 40px;
+  color: #555;
+}
+
+.highlight {
+  color: #007bff;
+  font-weight: bold;
+}
+
+.highlight {
+  color: #007bff;
+  font-weight: bold;
+}
+
+/* b) Class selector */
+.profile-pic.small {
+  width: 120px;
+  height: 120px;
+  border: 4px solid #a18cd1;
+  margin-bottom: 15px;
+}
+
+/* b) Class selector */
+.about-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+  text-align: left;
+  transition: transform 0.3s ease;
+  text-align: center;
+}
+
+/* f) Pseudo-class selector */
+.about-card:hover {
+  transform: translateY(-5px);
+}
+
+.about-card h3 {
+  margin-bottom: 10px;
+  color: #222;
+}
+
+.about-card p, 
+.about-card ul {
+  color: #555;
+  font-size: 0.95rem;
+}
+
+.about-card ul {
+  padding-left: 20px;
+}
+
+.about-card ul li {
+  margin-bottom: 6px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.about-card:hover {
+  transform: translateY(-8px);
+}
+
+/* b) Class selector */
+.hobby-card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 20px;
+  max-width: 600px;
+  margin: 20px auto;
+}
+
+/* b) Class selector = dengan grid */
+.hobby-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px 20px; 
+}
+
+.profile-pic.small {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+  
+}
+
+/* b) Class selector */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* b) Class selector + Keyframes */
+@keyframes fadeInUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* b) Class selector */
+.project-section {
+  padding: 50px 20px;
+  text-align: center;
+  background: #f9fafc;
+}
+
+.section-title {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.project-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* b) Class selector */
+.project-card {
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* f) Pseudo-class selector */
+.project-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+}
+
+.project-content {
+  padding: 15px;
+}
+
+.project-content h3 {
+  margin: 10px 0;
+  font-size: 1.2rem;
+  color: #222;
+}
+
+.project-content p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+.tech-stack {
+  margin: 10px 0;
+}
+.tech-stack span {
+  display: inline-block;
+  background: #eef;
+  color: #334;
+  padding: 5px 10px;
+  margin: 3px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+.btn-project {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 15px;
+  background: #4a90e2;
+  color: white;
+  border-radius: 10px;
+  text-decoration: none;
+  transition: background 0.3s;
+}
+.btn-project:hover {
+  background: #357ABD;
+}
