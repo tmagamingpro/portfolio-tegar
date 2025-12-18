@@ -441,3 +441,15 @@ input[type="text"]:focus {
 .btn-project:hover {
   background: #357ABD;
 }
+
+.contact-link {
+  color: #24292e; 
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+  color: #6e40c9;
+  text-decoration: underline;
+}
