@@ -382,7 +382,7 @@ input[type="text"]:focus {
 
 .project-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
@@ -525,4 +525,63 @@ input[type="text"]:focus {
   text-align: center;
   font-size: 0.85rem;
   color: #9ca3af;
+}
+
+@media (max-width: 900px) {
+  .project-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .project-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.modal-box {
+  background: linear-gradient(90deg, #a18cd1, #ae5695);
+  color: #e5e7eb;
+  padding: 25px;
+  border-radius: 16px;
+  max-width: 350px;
+  text-align: center;
+  animation: pop 0.3s ease;
+}
+
+.modal-box h3 {
+  margin-bottom: 10px;
+  color: #38bdf8;
+}
+
+.modal-box button {
+  margin-top: 15px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  background: #38bdf8;
+  color: #0f172a;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
 }

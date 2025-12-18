@@ -31,21 +31,121 @@
             <div class="tech-stack">
             <span>React</span><span>Tailwind</span>>
             </div>
-            <a href="#" class="btn-project">Lihat Project</a>
+            <a href="#" class="btn-project" onclick="showUnavailable(event)">GitHub Project</a>
         </div>
         </div>
 
         <div class="project-card">
         <div class="project-content">
-            <h3>Web Anime Recomendation (on going)</h3>
-            <p>Web untuk mencari judul anime berbasis AI, yang menggunakan React + Tailwind</p>
+            <h3>Dashboard company profile Kito Mart</h3>
+            <p>Admin dashboard dari kito mart, untuk memantau dan mengelola data perusahaan.</p>
             <div class="tech-stack">
-            <span>Python</span><span>React</span><span>Tailwind</span>
+            <span>Html</span><span>CSS</span><span>JavaScript</span>
             </div>
-            <a href="#" class="btn-project">Lihat Project</a>
+            <a href="https://github.com/tmagamingpro/profil-company-kito-mart.git" class="btn-project">GitHub Project</a>
         </div>
         </div>
+
+        <div class="project-card">
+        <div class="project-content">
+          <h3>Personal Portfolio Website</h3>
+          <p>Website portfolio pribadi untuk menampilkan profil, skill, project, dan kontak.</p>
+          <div class="tech-stack">
+            <span>HTML</span><span>CSS</span><span>JavaScript</span>
+          </div>
+          <a href="https://github.com/tmagamingpro/portfolio-tegar" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Company Profile Kito Mart</h3>
+          <p>Website company profile untuk memperkenalkan Kito Mart sebagai perusahaan di bidang swalayan.</p>
+          <div class="tech-stack">
+            <span>HTML</span><span>CSS</span>
+          </div>
+          <a href="https://github.com/tmagamingpro/profil-company-kito-mart" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>REST API BobaKu</h3>
+          <p>Backend REST API untuk manajemen menu dan topping minuman pada website BobaKu.</p>
+          <div class="tech-stack">
+            <span>JavaScript</span><span>Express.js</span><span>JSON</span>
+          </div>
+          <a href="https://github.com/tmagamingpro/rest-api-bobaku" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Admin Dashboard LEX DEV</h3>
+          <p>Admin dashboard untuk mengelola data proyek, anggota, dan teknologi menggunakan sistem autentikasi.</p>
+          <div class="tech-stack">
+            <span>React</span><span>Tailwind</span><span>Supabase</span>
+          </div>
+          <a href="https://github.com/tmagamingpro/admin-dashboard-LEX-DEV" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Printer Spooling Simulation</h3>
+          <p>Simulasi konsep printer spooling untuk memahami manajemen proses dalam sistem operasi.</p>
+          <div class="tech-stack">
+            <span>React</span><span>Tailwind</span>>
+          </div>
+          <a href="https://github.com/tmagamingpro/SpoolingPrinterSimulator" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Memory Allocation Simulator (First Fit)</h3>
+          <p>Simulasi algoritma First Fit dalam manajemen memori sistem operasi.</p>
+          <div class="tech-stack">
+            <span>React</span><span>Tailwind</span>>
+          </div>
+          <a href="https://github.com/tmagamingpro/FirstFitMemorySimulator" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Contiguous Allocation Simulator</h3>
+          <p>Simulasi alokasi memori secara contiguous untuk pembelajaran konsep OS.</p>
+          <div class="tech-stack">
+            <span>React</span><span>Tailwind</span>
+          </div>
+          <a href="https://github.com/tmagamingpro/ContiguousAllocationSimulator" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-content">
+          <h3>Food Recommendation System (Java)</h3>
+          <p>Sistem rekomendasi makanan sederhana menggunakan bahasa pemrograman Java.</p>
+          <div class="tech-stack">
+            <span>Java</span>
+          </div>
+          <a href="https://github.com/tmagamingpro/rekomendasi-makanan-menggunakan-java" class="btn-project" target="_blank">GitHub Project</a>
+        </div>
+      </div>
     </div>
+
+    <div class="modal-overlay" id="projectModal">
+      <div class="modal-box">
+        <h3>Project Belum Tersedia 😅</h3>
+        <p>
+          Maaf yaa~ project ini masih private atau sedang dikembangkan.
+          Silakan cek project lainnya!! 
+        </p>
+        <button onclick="closeModal()">Oke</button>
+      </div>
+    </div>
+
     </section>
   </main>
 
@@ -90,5 +190,15 @@
     </div>
   </footer>
 
+  <script>
+    function showUnavailable(event) {
+      event.preventDefault();
+      document.getElementById("projectModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("projectModal").style.display = "none";
+    }
+  </script>
 </body>
 </html>
