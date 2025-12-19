@@ -10,13 +10,18 @@
 <body>
   <header id="header">
     <nav>
-      <ul>
+      <ul class="nav-links" id="navLinks">
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="project.html" class="active">Project</a></li>
         <li><a href="skills.html">Skills</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
+
+      <div class="hamburger" id="hamburger">
+      ☰
+    </div>
+    
     </nav>
   </header>
 
@@ -198,6 +203,13 @@
     function closeModal() {
       document.getElementById("projectModal").style.display = "none";
     }
+
+    const hamburger = document.getElementById("hamburger");
+    const navLinks = document.getElementById("navLinks");
+
+    hamburger.addEventListener("click", () => {
+      navLinks.classList.toggle("active");
+    });
   </script>
 </body>
 </html>
