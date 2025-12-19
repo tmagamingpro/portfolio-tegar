@@ -635,6 +635,11 @@ input[type="text"]:focus {
 }
 
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -668,12 +673,13 @@ input[type="text"]:focus {
   .nav-links {
     position: absolute;
     top: 64px;
-    right: 0;
+    left: 0;
+    width: 100%;
     background: #0f172a;
     flex-direction: column;
-    width: 100%;
     text-align: center;
     display: none;
+    z-index: 9999;
   }
 
   .nav-links.active {
