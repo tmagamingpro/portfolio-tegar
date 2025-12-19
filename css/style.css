@@ -585,3 +585,51 @@ input[type="text"]:focus {
     opacity: 1;
   }
 }
+
+.about-timeline {
+  padding: 60px 20px;
+}
+
+.timeline {
+  position: relative;
+  list-style: none;
+  padding-left: 30px;
+}
+
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 10px;
+  top: 0;
+  width: 2px;
+  height: 100%;
+  background: #ccc;
+}
+
+.timeline li {
+  position: relative;
+  margin-bottom: 40px;
+}
+
+.timeline .dot {
+  position: absolute;
+  left: -3px;
+  width: 14px;
+  height: 14px;
+  background: #2563eb; /* biru */
+  border-radius: 50%;
+}
+
+.timeline .content {
+  padding-left: 30px;
+}
+
+.timeline .content h4 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.timeline .content p {
+  margin-top: 6px;
+  color: #555;
+}
