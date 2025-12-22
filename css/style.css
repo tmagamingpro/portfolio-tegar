@@ -729,3 +729,69 @@ input[type="text"]:focus {
   margin-bottom: 12px;
 }
 
+.contact-form {
+  max-width: 500px;
+  margin: auto;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #ddd;
+  border-radius: 10px;
+  padding: 10px 14px;
+  background: #fff;
+  transition: 0.3s;
+}
+
+.input-wrapper i {
+  color: #888;
+  margin-right: 10px;
+}
+
+.input-wrapper input,
+.input-wrapper textarea {
+  border: none;
+  outline: none;
+  width: 100%;
+  font-size: 16px;
+  font-family: inherit;
+}
+
+.input-wrapper:focus-within {
+  border-color: #4f46e5;
+  box-shadow: 0 0 0 2px rgba(79,70,229,0.2);
+}
+
+.textarea {
+  align-items: flex-start;
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 14px;
+  font-size: 17px;
+  font-weight: 600;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  border: 1px solid #a18cd1;
+  color: #ff5fd2;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(90deg, #a18cd1, #fbc2eb);
+  transform: translateY(-2px);
+}
