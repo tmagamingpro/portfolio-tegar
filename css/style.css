@@ -616,7 +616,7 @@ input[type="text"]:focus {
   left: -3px;
   width: 14px;
   height: 14px;
-  background: #2563eb; /* biru */
+  background: #2563eb; 
   border-radius: 50%;
 }
 
@@ -675,11 +675,13 @@ input[type="text"]:focus {
     top: 64px;
     left: 0;
     width: 100%;
-    background: #0f172a;
+    background: linear-gradient(90deg, #a18cd1, #fbc2eb);
     flex-direction: column;
     text-align: center;
     display: none;
     z-index: 9999;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
   }
 
   .nav-links.active {
