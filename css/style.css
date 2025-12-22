@@ -795,3 +795,25 @@ input[type="text"]:focus {
   background: linear-gradient(90deg, #a18cd1, #fbc2eb);
   transform: translateY(-2px);
 }
+
+.form-message {
+  margin-top: 16px;
+  font-weight: 600;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: 0.3s;
+}
+
+.form-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.form-message.success {
+  color: #16a34a;
+}
+
+.form-message.error {
+  color: #dc2626;
+}
