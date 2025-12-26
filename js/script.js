@@ -19,8 +19,9 @@ const scrollTopBtn = document.getElementById("scrollTopBtn");
 
   document.addEventListener("DOMContentLoaded", () => {
     const form = document.querySelector("form");
+    const messageBox = document.getElementById("formMessage"); 
 
-    if (!form) return; // ⬅️ INI PENYELAMAT NYAWA
+    if (!form || !messageBox) return; 
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
@@ -48,6 +49,7 @@ const scrollTopBtn = document.getElementById("scrollTopBtn");
       }, 1500);
     });
   });
+
 
   document.addEventListener("DOMContentLoaded", () => {
     const btn = document.getElementById("scrollTopBtn");
