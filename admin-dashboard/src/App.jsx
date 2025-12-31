@@ -7,7 +7,7 @@ import ContactsPage from './pages/ContactsPage.jsx';
 import './index.css';
 
 function App() {
-  const [page, setPage] = useState("home"); // default ke home
+  const [page, setPage] = useState("home"); 
 
   return (
     <div className="flex h-screen bg-gray-50">

@@ -18,7 +18,6 @@ export default function HomePage() {
     setContacts(cont);
   };
 
-  // Contoh data chart: jumlah projects per tech
   const chartData = projects.reduce((acc, p) => {
     try {
       let techs = [];
@@ -52,6 +51,17 @@ export default function HomePage() {
     return acc;
   }, []);
 
+  const totalTech = chartData.length;
+
+  const mostUsedTech = chartData.reduce(
+    (max, cur) => (cur.count > max.count ? cur : max),
+    { name: "-", count: 0 }
+  );
+
+  const latestProject = projects[projects.length - 1];
+  const recentProjects = projects.slice(-3).reverse();
+  const recentContacts = contacts.slice(-3).reverse();
+
   return (
     <div className="space-y-8">
       <h1 className="text-3xl font-bold mb-4">Dashboard Home</h1>
@@ -66,7 +76,22 @@ export default function HomePage() {
           <h2 className="text-xl font-semibold">Contacts</h2>
           <p className="text-2xl font-bold">{contacts.length}</p>
         </div>
-        {/* Bisa tambah stat lain */}
+        <div className="p-4 bg-white shadow rounded text-center">
+          <h2 className="text-sm font-semibold text-gray-500">Total Tech</h2>
+          <p className="text-2xl font-bold">{totalTech}</p>
+        </div>
+        <div className="p-4 bg-white shadow rounded text-center">
+          <h2 className="text-sm font-semibold text-gray-500">Top Tech</h2>
+          <p className="text-xl font-bold text-blue-600">
+            {mostUsedTech.name}
+          </p>
+        </div>
+        <div className="p-4 bg-white shadow rounded text-center">
+          <h2 className="text-sm font-semibold text-gray-500">Latest Project</h2>
+          <p className="text-sm font-medium">
+            {latestProject?.title || "-"}
+          </p>
+        </div>
       </div>
 
       {/* Chart */}
@@ -80,6 +105,20 @@ export default function HomePage() {
             <Bar dataKey="count" fill="#3b82f6" />
           </BarChart>
         </ResponsiveContainer>
+      </div>
+      {/* Recent Activity */}
+      <div className="bg-white p-4 rounded shadow">
+        <h2 className="text-xl font-semibold mb-3">Recent Activity</h2>
+
+        <ul className="space-y-2 text-sm text-gray-600">
+          {recentProjects.map((p, i) => (
+            <li key={i}>➕ New project: {p.title}</li>
+          ))}
+
+          {recentContacts.map((c, i) => (
+            <li key={i}>📩 Contact from {c.name}</li>
+          ))}
+        </ul>
       </div>
     </div>
   );

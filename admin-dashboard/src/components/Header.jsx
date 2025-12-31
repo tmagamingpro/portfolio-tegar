@@ -5,7 +5,7 @@ export default function Header() {
     <header className="bg-white shadow p-4 flex justify-between items-center">
       <h1 className="text-xl font-bold">Admin Dashboard</h1>
       <div>
-        {/* Bisa ditambah user avatar, dropdown, atau logout button */}
+        {/* kalau mau nambahin gambar dll, next time saja */}
       </div>
     </header>
   );

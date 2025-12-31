@@ -7,7 +7,6 @@ export default function ContactsPage() {
   const { contacts, loading, loadContacts } = useContacts();
   const [toastMsg, setToastMsg] = useState("");
 
-  // Optional: kalau mau refresh manual
   const handleRefresh = async () => {
     await loadContacts();
     setToastMsg("Contacts refreshed!");
@@ -21,27 +20,52 @@ export default function ContactsPage() {
       </div>
 
       {loading ? <Loader /> : (
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border px-2 py-1">Name</th>
-              <th className="border px-2 py-1">Email</th>
-              <th className="border px-2 py-1">Message</th>
+      <div className="bg-white rounded-xl shadow overflow-hidden">
+        <table className="w-full text-sm">
+          <thead className="bg-gray-50 text-gray-600">
+            <tr>
+              <th className="px-4 py-3 text-left font-semibold">Name</th>
+              <th className="px-4 py-3 text-left font-semibold">Email</th>
+              <th className="px-4 py-3 text-left font-semibold">Message</th>
             </tr>
           </thead>
-          <tbody>
-            {contacts.map(c => (
-              <tr key={c.id}>
-                <td className="border px-2 py-1">{c.name}</td>
-                <td className="border px-2 py-1">{c.email}</td>
-                <td className="border px-2 py-1">{c.message}</td>
+
+          <tbody className="divide-y">
+            {contacts.length === 0 ? (
+              <tr>
+                <td
+                  colSpan={3}
+                  className="px-4 py-6 text-center text-gray-400 italic"
+                >
+                  No contacts yet 
+                </td>
               </tr>
-            ))}
+            ) : (
+              contacts.map((c) => (
+                <tr key={c.id} className="hover:bg-gray-50 transition">
+                  <td className="px-4 py-3 font-medium text-gray-800">
+                    {c.name}
+                  </td>
+
+                  <td className="px-4 py-3 text-gray-600">
+                    {c.email}
+                  </td>
+
+                  <td className="px-4 py-3 text-gray-600 max-w-md truncate">
+                    {c.message}
+                  </td>
+                </tr>
+              ))
+            )}
           </tbody>
         </table>
+      </div>
       )}
 
-      {toastMsg && <Toast message={toastMsg} onClose={() => setToastMsg("")} />}
+      {/* TOAST */}
+      {toastMsg && (
+        <Toast message={toastMsg} onClose={() => setToastMsg("")} />
+      )}
     </div>
   );
 }

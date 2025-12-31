@@ -1,12 +1,139 @@
 [
   {
-    "id": "b90d0fe7-fb1e-46c8-a8b5-f173d639d3ac",
-    "title": "istriku",
-    "description": "my kisah",
-    "image": "/uploads/1767153696360-1cg35ap0.jcm.jpg",
+    "id": "proj-1",
+    "title": "Website Portfolio Team",
+    "description": "Website portfolio team untuk menampilkan profile, skill, dan project. Dibuat dengan React + Tailwind",
+    "image": "/uploads/1767190272309-profilTeam.png",
     "tech": [
-      "gtw"
+      "React",
+      "Tailwind"
     ],
-    "githubLink": "hhh"
+    "githubLink": ""
+  },
+  {
+    "id": "proj-2",
+    "title": "Dashboard company profile Kito Mart",
+    "description": "Admin dashboard dari kito mart, untuk memantau dan mengelola data perusahaan.",
+    "image": "/uploads/1767190291111-adminToko.png",
+    "tech": [
+      "Html",
+      "CSS",
+      "JavaScript"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/profil-company-kito-mart.git"
+  },
+  {
+    "id": "proj-3",
+    "title": "Personal Portfolio Website",
+    "description": "Website portfolio pribadi untuk menampilkan profil, skill, project, dan kontak.",
+    "image": "/uploads/1767190300540-portoPribadi.png",
+    "tech": [
+      "HTML",
+      "CSS",
+      "JavaScript"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/portfolio-tegar"
+  },
+  {
+    "id": "proj-4",
+    "title": "Company Profile Kito Mart",
+    "description": "Website company profile untuk memperkenalkan Kito Mart sebagai perusahaan di bidang swalayan.",
+    "image": "/uploads/1767190312936-profilToko.png",
+    "tech": [
+      "HTML",
+      "CSS",
+      "Bootstrap",
+      "JavaScript"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/profil-company-kito-mart"
+  },
+  {
+    "id": "proj-5",
+    "title": "REST API BobaKu",
+    "description": "Backend REST API untuk manajemen menu dan topping minuman pada website BobaKu.",
+    "image": "",
+    "tech": [
+      "JavaScript",
+      "Express.js",
+      "JSON"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/rest-api-bobaku"
+  },
+  {
+    "id": "proj-6",
+    "title": "Admin Dashboard LEX DEV",
+    "description": "Admin dashboard untuk mengelola data proyek, anggota, dan teknologi menggunakan sistem autentikasi.",
+    "image": "/uploads/1767190341607-adminTeam.png",
+    "tech": [
+      "React",
+      "Tailwind",
+      "Supabase"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/admin-dashboard-LEX-DEV"
+  },
+  {
+    "id": "proj-7",
+    "title": "Printer Spooling Simulation",
+    "description": "Simulasi konsep printer spooling untuk memahami manajemen proses dalam sistem operasi.",
+    "image": "/uploads/1767190360448-spooling.png",
+    "tech": [
+      "React",
+      "Tailwind"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/SpoolingPrinterSimulator"
+  },
+  {
+    "id": "proj-8",
+    "title": "Memory Allocation Simulator (First Fit)",
+    "description": "Simulasi algoritma First Fit dalam manajemen memori sistem operasi.",
+    "image": "/uploads/1767190383724-firstFit.png",
+    "tech": [
+      "React",
+      "Tailwind"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/FirstFitMemorySimulator"
+  },
+  {
+    "id": "proj-9",
+    "title": "Contiguous Allocation Simulator",
+    "description": "Simulasi alokasi memori secara contiguous untuk pembelajaran konsep OS.",
+    "image": "/uploads/1767190391659-contiguous.png",
+    "tech": [
+      "React",
+      "Tailwind"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/ContiguousAllocationSimulator"
+  },
+  {
+    "id": "proj-10",
+    "title": "Food Recommendation System (Java)",
+    "description": "Sistem rekomendasi makanan sederhana menggunakan bahasa pemrograman Java.",
+    "image": "/uploads/1767190398591-rekomendasi.png",
+    "tech": [
+      "Java"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/rekomendasi-makanan-menggunakan-java"
+  },
+  {
+    "id": "proj-11",
+    "title": "Rancangan Aplikasi HydraPal",
+    "description": "Membuat rancangan aplikasi mobile tentang pengingat minum air",
+    "image": "/uploads/1767190406930-hydrapal.png",
+    "tech": [
+      "Figma"
+    ],
+    "githubLink": "https://www.figma.com/proto/XNGugiCK3cgfB7aDZWPP8G/HydraPal?page-id=0%3A1&node-id=24-29&viewport=450%2C261%2C0.22&t=1MKRh5ouJtmDYvt7-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1%3A2&show-proto-sidebar=1"
+  },
+  {
+    "id": "proj-12",
+    "title": "website wishlist crud app",
+    "description": "Membuat website wishlist sederhana",
+    "image": "/uploads/1767190417026-wishlist.png",
+    "tech": [
+      "React.js",
+      "Tailwind CSS",
+      "Express"
+    ],
+    "githubLink": "https://github.com/tmagamingpro/Simple-Wishlist-CRUD-App.git"
   }
 ]

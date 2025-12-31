@@ -1,33 +1,32 @@
 const BASE_URL = "http://localhost:3000/api/projects";
 
-export const projects = {
+const projects = {
     async getAll() {
-        return fetch(BASE_URL).then(res => res.json());
+        const res = await fetch(BASE_URL);
+        return res.json();
     },
     async create(data) {
-        return fetch(BASE_URL, {
+        const res = await fetch(BASE_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(res => res.json());
+            body: data 
+        });
+        return res.json();
     },
     async update(id, data) {
-        return fetch(`${BASE_URL}/${id}`, {
+        const res = await fetch(`${BASE_URL}/${id}`, {
             method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        }).then(res => res.json());
+            body: data 
+        });
+        return res.json();
     },
     async delete(id) {
-        return fetch(`${BASE_URL}/${id}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(res => res.json());
+        const res = await fetch(`${BASE_URL}/${id}`, {
+            method: 'DELETE'
+        });
+        return res.status === 204 ? true : res.json();
     }
-}
+};
+
+window.projectsApi = projects;
+
+export default projects;

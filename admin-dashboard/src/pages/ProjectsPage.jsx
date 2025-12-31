@@ -14,7 +14,7 @@ export default function ProjectsPage() {
     const formData = new FormData();
     formData.append('title', data.title);
     formData.append('description', data.description);
-    formData.append('tech', JSON.stringify(data.tech)); // stringified
+    formData.append('tech', JSON.stringify(data.tech)); 
     formData.append('githubLink', data.githubLink);
     if(file) formData.append('image', file);
     try {
@@ -24,7 +24,7 @@ export default function ProjectsPage() {
       });
 
       if (res.ok) {
-        await loadProjects(); // refresh list
+        await loadProjects(); 
         setToastMsg("Project added successfully!");
       } else {
         const text = await res.text();
@@ -88,33 +88,77 @@ export default function ProjectsPage() {
       </div>
 
       {loading ? <Loader /> : (
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-200">
-              <th className="border px-2 py-1">Title</th>
-              <th className="border px-2 py-1">Tech</th>
-              <th className="border px-2 py-1">Description</th>
-              <th className="border px-2 py-1">Image</th>
-              <th className="border px-2 py-1">Actions</th>
+      <div className="bg-white rounded-xl shadow overflow-hidden">
+        <table className="w-full text-sm text-left">
+          <thead className="bg-gray-50 text-gray-600">
+            <tr>
+              <th className="px-4 py-3 text-left font-semibold">Title</th>
+              <th className="px-4 py-3 text-left font-semibold">Tech</th>
+              <th className="px-4 py-3 text-left font-semibold">Description</th>
+              <th className="px-4 py-3 text-left font-semibold">Image</th>
+              <th className="px-4 py-3 text-right font-semibold">Actions</th>
             </tr>
           </thead>
-          <tbody>
+
+          <tbody className="divide-y">
             {projects.map(p => (
-              <tr key={p.id}>
-                <td className="border px-2 py-1">{p.title}</td>
-                <td className="border px-2 py-1">{p.tech}</td>
-                <td className="border px-2 py-1">{p.description}</td>
-                <td className="border px-2 py-1">
-                    {p.image && <img src={`http://localhost:3000${p.image}`} alt={p.title} className="w-20 h-20 object-cover" />}
-                    </td>
-                <td className="border px-2 py-1">
-                  <button className="bg-red-500 text-white px-2 py-1 rounded mr-2" onClick={() => handleDelete(p.id)}>Delete</button>
-                  <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => openEditModal(p)}>Edit</button>
+              <tr key={p.id} className="hover:bg-gray-50 transition">
+                <td className="px-4 py-3 font-medium text-gray-800">
+                  {p.title}
+                </td>
+
+                <td className="px-4 py-3">
+                  <div className="flex flex-wrap gap-1">
+                    {(Array.isArray(p.tech) ? p.tech : JSON.parse(p.tech || "[]")).map((t, i) => (
+                      <span
+                        key={i}
+                        className="bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full text-xs"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </td>
+
+                <td className="px-4 py-3 text-gray-600 max-w-xs truncate">
+                  {p.description}
+                </td>
+
+                <td className="px-4 py-3">
+                  {p.image ? (
+                    <img
+                      src={`http://localhost:3000${p.image}`}
+                      alt={p.title}
+                      className="w-14 h-14 rounded-lg object-cover border"
+                    />
+                  ) : (
+                    <span className="text-gray-400 italic text-xs">
+                      No image
+                    </span>
+                  )}
+                </td>
+
+                <td className="px-4 py-3 text-right">
+                  <div className="flex justify-end gap-2">
+                    <button
+                      onClick={() => openEditModal(p)}
+                      className="px-3 py-1 text-xs rounded bg-blue-100 text-blue-600 hover:bg-blue-200"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      onClick={() => handleDelete(p.id)}
+                      className="px-3 py-1 text-xs rounded bg-red-100 text-red-600 hover:bg-red-200"
+                    >
+                      Delete
+                    </button>
+                  </div>
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
+      </div>
       )}
 
       {modalOpen && (
