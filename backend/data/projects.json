@@ -1,1 +1,12 @@
-[]
+[
+  {
+    "id": "b90d0fe7-fb1e-46c8-a8b5-f173d639d3ac",
+    "title": "istriku",
+    "description": "my kisah",
+    "image": "/uploads/1767153696360-1cg35ap0.jcm.jpg",
+    "tech": [
+      "gtw"
+    ],
+    "githubLink": "hhh"
+  }
+]

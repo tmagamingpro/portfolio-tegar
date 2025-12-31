@@ -1,0 +1,138 @@
+import React, { useState } from "react";
+import useProjects from "../hooks/useProjects.js";
+import Modal from "../components/Modal.jsx";
+import Loader from "../components/Loader.jsx";
+import Toast from "../components/Toast.jsx";
+
+export default function ProjectsPage() {
+  const { projects, loading, addProject, removeProject, editProject, loadProjects } = useProjects();
+  const [modalOpen, setModalOpen] = useState(false);
+  const [editingProject, setEditingProject] = useState(null);
+  const [toastMsg, setToastMsg] = useState("");
+
+  const handleAdd = async (data, file) => {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('tech', JSON.stringify(data.tech)); // stringified
+    formData.append('githubLink', data.githubLink);
+    if(file) formData.append('image', file);
+    try {
+      const res = await fetch('http://localhost:3000/api/projects', {
+        method: 'POST',
+        body: formData
+      });
+
+      if (res.ok) {
+        await loadProjects(); // refresh list
+        setToastMsg("Project added successfully!");
+      } else {
+        const text = await res.text();
+        console.error('Add project failed', res.status, text);
+        setToastMsg("Failed to add project (see console)");
+      }
+    } catch (err) {
+      console.error('Network error while adding project', err);
+      setToastMsg("Network error while adding project");
+    }
+    };
+
+  const handleEdit = async (id, data, file) => {
+    const formData = new FormData();
+    formData.append('title', data.title);
+    formData.append('description', data.description);
+    formData.append('tech', JSON.stringify(data.tech));
+    formData.append('githubLink', data.githubLink);
+    if(file) formData.append('image', file);
+
+    try {
+      const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
+        method: 'PUT',
+        body: formData
+      });
+
+      if (res.ok) {
+        await loadProjects();
+        setToastMsg("Project updated successfully!");
+      } else {
+        const text = await res.text();
+        console.error('Update project failed', res.status, text);
+        setToastMsg("Failed to update project (see console)");
+      }
+    } catch (err) {
+      console.error('Network error while updating project', err);
+      setToastMsg("Network error while updating project");
+    }
+    };
+
+  const handleDelete = async (id) => {
+    await removeProject(id);
+    setToastMsg("Project deleted successfully!");
+  };
+
+  const openEditModal = (project) => {
+    setEditingProject(project);
+    setModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalOpen(false);
+    setEditingProject(null);
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-2xl font-bold">Projects</h2>
+        <button className="bg-green-500 text-white px-4 py-2 rounded" onClick={() => setModalOpen(true)}>Add Project</button>
+      </div>
+
+      {loading ? <Loader /> : (
+        <table className="w-full border-collapse">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border px-2 py-1">Title</th>
+              <th className="border px-2 py-1">Tech</th>
+              <th className="border px-2 py-1">Description</th>
+              <th className="border px-2 py-1">Image</th>
+              <th className="border px-2 py-1">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {projects.map(p => (
+              <tr key={p.id}>
+                <td className="border px-2 py-1">{p.title}</td>
+                <td className="border px-2 py-1">{p.tech}</td>
+                <td className="border px-2 py-1">{p.description}</td>
+                <td className="border px-2 py-1">
+                    {p.image && <img src={`http://localhost:3000${p.image}`} alt={p.title} className="w-20 h-20 object-cover" />}
+                    </td>
+                <td className="border px-2 py-1">
+                  <button className="bg-red-500 text-white px-2 py-1 rounded mr-2" onClick={() => handleDelete(p.id)}>Delete</button>
+                  <button className="bg-blue-500 text-white px-2 py-1 rounded" onClick={() => openEditModal(p)}>Edit</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+
+      {modalOpen && (
+        <Modal
+          isOpen={modalOpen}
+          onClose={closeModal}
+          onSubmit={async (data, file) => {
+            if (editingProject) {
+              await handleEdit(editingProject.id, data, file);
+            } else {
+              await handleAdd(data, file);
+            }
+          }}
+          project={editingProject}
+        />
+      )}
+
+      {toastMsg && <Toast message={toastMsg} onClose={() => setToastMsg("")} />}
+    </div>
+  );
+}

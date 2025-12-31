@@ -8,6 +8,8 @@ const PORT = 3000;
     
 app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use('/uploads', express.static('uploads'));
 
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/projects', projectsRoutes);
