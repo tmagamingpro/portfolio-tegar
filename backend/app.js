@@ -30,7 +30,7 @@ process.on('uncaughtException', (err) => {
 });
 
 // Bind explicitly to 0.0.0.0 to ensure the server listens on all interfaces
-app.listen(PORT, '0.0.0.0', () => {
+app.listen(PORT, () => {
   console.log(`Backend running at http://0.0.0.0:${PORT} (CLIENT_ORIGIN=${CLIENT_ORIGIN})`);
 });
 
