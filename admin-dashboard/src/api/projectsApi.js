@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+// src/api/projects.js
+const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app';
 const BASE_URL = `${API_BASE}/api/projects`;
 
 // READ
@@ -9,20 +10,32 @@ export const getAllProjects = async () => {
 
 // CREATE
 export const createProject = async (data) => {
+  const formData = new FormData();
+  formData.append('title', data.title);
+  formData.append('description', data.description);
+  formData.append('tech', JSON.stringify(data.tech));
+  formData.append('githubLink', data.githubLink);
+  if(data.image) formData.append('image', data.image);
+
   const res = await fetch(BASE_URL, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: formData,
   });
   return res.json();
 };
 
 // UPDATE
 export const updateProject = async (id, data) => {
+  const formData = new FormData();
+  formData.append('title', data.title);
+  formData.append('description', data.description);
+  formData.append('tech', JSON.stringify(data.tech));
+  formData.append('githubLink', data.githubLink);
+  if(data.image) formData.append('image', data.image);
+
   const res = await fetch(`${BASE_URL}/${id}`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    body: formData,
   });
   return res.json();
 };

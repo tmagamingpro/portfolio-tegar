@@ -5,7 +5,7 @@ import projectsRoutes from './routes/projectRoutes.js';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'https://tmagamingpro-portfolio-tegar.vercel.app';
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || '*';
 
 app.get("/", (req, res) => {
   res.send("Backend is alive! 👋");

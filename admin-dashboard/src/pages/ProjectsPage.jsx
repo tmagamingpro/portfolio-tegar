@@ -12,6 +12,9 @@ export default function ProjectsPage() {
   const [editingProject, setEditingProject] = useState(null);
   const [toastMsg, setToastMsg] = useState("");
 
+  // Aqua ganti URL ke Railway
+  const API_URL = "https://portfolio-tegar-production-bed1.up.railway.app";
+
   const handleAdd = async (data, file) => {
     const formData = new FormData();
     formData.append('title', data.title);
@@ -20,7 +23,7 @@ export default function ProjectsPage() {
     formData.append('githubLink', data.githubLink);
     if(file) formData.append('image', file);
     try {
-      const res = await fetch('http://localhost:3000/api/projects', {
+      const res = await fetch(`${API_URL}/api/projects`, {
         method: 'POST',
         body: formData
       });
@@ -37,7 +40,7 @@ export default function ProjectsPage() {
       console.error('Network error while adding project', err);
       setToastMsg("Network error while adding project");
     }
-    };
+  };
 
   const handleEdit = async (id, data, file) => {
     const formData = new FormData();
@@ -48,7 +51,7 @@ export default function ProjectsPage() {
     if(file) formData.append('image', file);
 
     try {
-      const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
+      const res = await fetch(`${API_URL}/api/projects/${id}`, {
         method: 'PUT',
         body: formData
       });
@@ -65,11 +68,25 @@ export default function ProjectsPage() {
       console.error('Network error while updating project', err);
       setToastMsg("Network error while updating project");
     }
-    };
+  };
 
   const handleDelete = async (id) => {
-    await removeProject(id);
-    setToastMsg("Project deleted successfully!");
+    try {
+      const res = await fetch(`${API_URL}/api/projects/${id}`, {
+        method: 'DELETE'
+      });
+      if (res.ok) {
+        await loadProjects();
+        setToastMsg("Project deleted successfully!");
+      } else {
+        const text = await res.text();
+        console.error('Delete project failed', res.status, text);
+        setToastMsg("Failed to delete project (see console)");
+      }
+    } catch (err) {
+      console.error('Network error while deleting project', err);
+      setToastMsg("Network error while deleting project");
+    }
   };
 
   const openEditModal = (project) => {
@@ -129,7 +146,7 @@ export default function ProjectsPage() {
                 <td className="px-4 py-3">
                   {p.image ? (
                     <img
-                      src={`http://localhost:3000${p.image}`}
+                      src={`${API_URL}${p.image}`}
                       alt={p.title}
                       className="w-14 h-14 rounded-lg object-cover border"
                     />

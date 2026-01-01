@@ -162,3 +162,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        document.getElementById('loading-page').style.display = 'none';
+        document.getElementById('portfolio-page').style.display = 'block';
+      }, 6000); // 6 detik loading
+    });
+

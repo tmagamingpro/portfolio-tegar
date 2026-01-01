@@ -9,9 +9,17 @@ export default function ContactsPage() {
   const { contacts, loading, loadContacts } = useContacts();
   const [toastMsg, setToastMsg] = useState("");
 
+  // Aqua ganti URL ke Railway
+  const API_URL = "https://portfolio-tegar-production-bed1.up.railway.app";
+
   const handleRefresh = async () => {
-    await loadContacts();
-    setToastMsg("Contacts refreshed!");
+    try {
+      await loadContacts(API_URL); // pastiin useContacts hook menerima baseURL
+      setToastMsg("Contacts refreshed!");
+    } catch (err) {
+      console.error("Failed to load contacts:", err);
+      setToastMsg("Failed to refresh contacts");
+    }
   };
 
   return (
