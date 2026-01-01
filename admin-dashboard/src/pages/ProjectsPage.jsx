@@ -3,8 +3,10 @@ import useProjects from "../hooks/useProjects.js";
 import Modal from "../components/Modal.jsx";
 import Loader from "../components/Loader.jsx";
 import Toast from "../components/Toast.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function ProjectsPage() {
+  const navigate = useNavigate();
   const { projects, loading, addProject, removeProject, editProject, loadProjects } = useProjects();
   const [modalOpen, setModalOpen] = useState(false);
   const [editingProject, setEditingProject] = useState(null);

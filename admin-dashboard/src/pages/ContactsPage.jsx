@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import useContacts from "../hooks/useContacts.js";
 import Loader from "../components/Loader.jsx";
 import Toast from "../components/Toast.jsx";
+import { useNavigate } from "react-router-dom"; 
 
 export default function ContactsPage() {
+  const navigate = useNavigate();
   const { contacts, loading, loadContacts } = useContacts();
   const [toastMsg, setToastMsg] = useState("");
 

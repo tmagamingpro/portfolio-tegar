@@ -1,23 +1,28 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
-export default function Sidebar({ setPage }) {
+export default function Sidebar() {
+  const navigate = useNavigate();
+
   return (
-    <aside className="w-64 bg-white shadow-lg min-h-screen p-6">
-      <h1 className="text-2xl font-bold mb-8 text-blue-600">
-        Admin Panel
-      </h1>
-
-      <nav className="space-y-4">
-        <a className="block text-gray-700 hover:text-blue-500 font-medium" onClick={() => setPage("home")}>
-          Dashboard
-        </a>
-        <a className="block text-gray-700 hover:text-blue-500 font-medium" onClick={() => setPage("projects")}>
-          Projects
-        </a>
-        <a className="block text-gray-700 hover:text-blue-500 font-medium" onClick={() => setPage("contacts")}>
-          Contacts
-        </a>
-      </nav>
+    <aside className="w-64 bg-white shadow p-4">
+      <ul className="space-y-3">
+        <li>
+          <button onClick={() => navigate("/home")}>
+            Home
+          </button>
+        </li>
+        <li>
+          <button onClick={() => navigate("/projects")}>
+            Projects
+          </button>
+        </li>
+        <li>
+          <button onClick={() => navigate("/contacts")}>
+            Contacts
+          </button>
+        </li>
+      </ul>
     </aside>
   );
 }

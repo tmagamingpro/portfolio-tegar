@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/projects";
+const API_BASE = window.__API_URL__ || 'http://localhost:3000';
+const BASE_URL = `${API_BASE}/api/projects`;
 
 const projects = {
     async getAll() {

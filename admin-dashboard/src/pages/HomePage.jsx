@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { getAllProjects } from "../api/projectsApi.js";
 import { getAllContacts } from "../api/contactsApi.js";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [contacts, setContacts] = useState([]);
 

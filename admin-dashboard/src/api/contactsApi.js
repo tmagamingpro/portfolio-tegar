@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/contacts";
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const BASE_URL = `${API_BASE}/api/contacts`;
 
 export const getAllContacts = async () => {
   const res = await fetch(BASE_URL);

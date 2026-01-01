@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "frontend/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    },
+    {
+      "src": "admin-dashboard/package.json",
+      "use": "@vercel/static-build",
+      "config": { "distDir": "dist" }
+    }
+  ],
+  "routes": [
+    { "src": "/admin/(.*)", "dest": "/admin-dashboard/$1" },
+    { "handle": "filesystem" },
+    { "src": "/admin(?:/(.*))?", "dest": "/admin-dashboard/index.html" },
+
+    { "src": "/(.*)", "dest": "/frontend/$1" },
+    { "handle": "filesystem" },
+    { "src": "(.*)", "dest": "/frontend/index.html" }
+  ]
+}

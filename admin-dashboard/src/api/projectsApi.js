@@ -1,4 +1,5 @@
-const BASE_URL = "http://localhost:3000/api/projects";
+const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+const BASE_URL = `${API_BASE}/api/projects`;
 
 // READ
 export const getAllProjects = async () => {
