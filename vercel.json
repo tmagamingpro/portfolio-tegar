@@ -15,8 +15,8 @@
   "routes": [
     { "handle": "filesystem" },
 
-    { "src": "/login/(.*)", "dest": "/admin-dashboard/$1" },
-    { "src": "/login", "dest": "/admin-dashboard/index.html" },
+    { "src": "/login/(.*)", "dest": "/admin-dashboard/dist/$1" },
+    { "src": "/login", "dest": "/admin-dashboard/dist/index.html" },
 
     { "src": "/(.*)", "dest": "/frontend/$1" },
     { "src": "/", "dest": "/frontend/index.html" }
