@@ -12,7 +12,6 @@ export default function ProjectsPage() {
   const [editingProject, setEditingProject] = useState(null);
   const [toastMsg, setToastMsg] = useState("");
 
-  // Aqua ganti URL ke Railway
   const API_URL = "https://portfolio-tegar-production-bed1.up.railway.app";
 
   const handleAdd = async (data, file) => {
