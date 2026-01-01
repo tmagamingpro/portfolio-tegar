@@ -7,6 +7,10 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || '*';
 
+app.get("/", (req, res) => {
+  res.send("Backend is alive! 👋");
+});
+
 // Configure CORS to allow requests from the frontend origin (set CLIENT_ORIGIN in production)
 app.use(cors({ origin: CLIENT_ORIGIN }));
 app.use(express.json());
