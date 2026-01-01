@@ -15,11 +15,18 @@
   "routes": [
     { "handle": "filesystem" },
 
-    { "src": "^/login/(.*)$", "dest": "/admin-dashboard/dist/$1" },
-    { "src": "^/login$", "dest": "/admin-dashboard/dist/index.html" },
-    { "src": "^/login(?:/.*)?$", "dest": "/admin-dashboard/dist/index.html" },
+    {
+      "src": "^/login$",
+      "dest": "/admin-dashboard/dist/index.html"
+    },
+    {
+      "src": "^/login/(.*)",
+      "dest": "/admin-dashboard/dist/$1"
+    },
 
-    { "src": "/(.*)", "dest": "/frontend/$1" },
-    { "src": "/", "dest": "/frontend/index.html" }
+    {
+      "src": "^/(.*)",
+      "dest": "/frontend/$1"
+    }
   ]
 }
