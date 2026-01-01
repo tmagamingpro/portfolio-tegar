@@ -1,4 +1,4 @@
-const API_BASE = window.__API_URL__ || 'http://localhost:3000';
+const API_BASE = window.__API_URL__ || 'portfolio-tegar-production.up.railway.app';
 const BASE_URL = `${API_BASE}/api/projects`;
 
 const projects = {

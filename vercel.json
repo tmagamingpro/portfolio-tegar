@@ -13,12 +13,12 @@
     }
   ],
   "routes": [
-    { "src": "/admin/(.*)", "dest": "/admin-dashboard/$1" },
     { "handle": "filesystem" },
-    { "src": "/admin(?:/(.*))?", "dest": "/admin-dashboard/index.html" },
+
+    { "src": "/admin/(.*)", "dest": "/admin-dashboard/$1" },
+    { "src": "/admin", "dest": "/admin-dashboard/index.html" },
 
     { "src": "/(.*)", "dest": "/frontend/$1" },
-    { "handle": "filesystem" },
-    { "src": "(.*)", "dest": "/frontend/index.html" }
+    { "src": "/", "dest": "/frontend/index.html" }
   ]
 }
