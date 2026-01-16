@@ -1,4 +1,4 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-production.up.railway.app';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app';
 const BASE_URL = `${API_BASE}/api/projects`;
 
 export const getProjects = async () => {
