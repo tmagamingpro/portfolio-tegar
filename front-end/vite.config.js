@@ -10,6 +10,6 @@ export default defineConfig({
   },
   define: {
     'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app'),
-    'import.meta.env.VITE_ADMIN_URL': JSON.stringify(process.env.VITE_ADMIN_URL || 'https://admin-dashboard.vercel.app')
+    'import.meta.env.VITE_ADMIN_URL': JSON.stringify(process.env.VITE_ADMIN_URL || 'https://portfolio-tegar-admin.vercel.app')
   }
 })
