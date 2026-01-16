@@ -1,0 +1,162 @@
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { getProjects } from '../services/projects';
+import ProjectCard from '../components/ProjectCard';
+
+export default function Home() {
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const adminUrl = import.meta.env.VITE_ADMIN_URL || 'https://admin-dashboard.vercel.app';
+
+  useEffect(() => {
+    getProjects()
+      .then(setProjects)
+      .catch(err => console.error(err))
+      .finally(() => setLoading(false));
+  }, []);
+
+  return (
+    <main className="bg-gray-50">
+      {/* Hero Section */}
+      <section className="flex justify-between items-center px-[10%] py-[60px] bg-gray-100">
+        <div className="max-w-[50%]">
+          <span className="inline-block bg-gradient-to-r from-pink-300 to-blue-300 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
+            Welcome to my portfolio
+          </span>
+          <h1 className="text-5xl font-bold text-gray-800 my-5">
+            Hi, I'm <span className="text-blue-400">Tegar Mupagiwa Afrian</span>
+            <br />
+            Fullstack Developer
+          </h1>
+          <p className="text-gray-600 mb-5">
+            Halo! Aku Tegar Mupagiwa Afrian, seorang mahasiswa Informatika yang suka banget dengan dunia teknologi. Aku fokus di Web Development, sama Machine Learning. Yuk jelajahi portofolio ini untuk lihat skill dan project aku!
+          </p>
+
+          <div className="flex gap-3 mb-5 flex-wrap">
+            <Link to="/projects" className="inline-block bg-gradient-to-r from-pink-300 to-blue-300 text-white px-5 py-2.5 rounded-lg font-bold hover:scale-105 transition-transform">
+              View My Work →
+            </Link>
+            <a href="mailto:tegarafrian2006@email.com" className="inline-block border border-purple-400 text-pink-500 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-pink-300 hover:to-blue-300 hover:text-white transition">
+              Contact Me
+            </a>
+            <a href={adminUrl} target="_blank" rel="noreferrer" className="inline-block border border-purple-400 text-pink-500 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-pink-300 hover:to-blue-300 hover:text-white transition">
+              Admin Panel
+            </a>
+          </div>
+
+          <div className="flex gap-4 text-2xl">
+            <a href="https://github.com/tmagamingpro" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition">
+              <i className="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/tegar-mupagiwa-afrian-718b3739a/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition">
+              <i className="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.instagram.com/tegar_mupagiwa_/" target="_blank" rel="noreferrer" className="hover:text-blue-400 transition">
+              <i className="fab fa-instagram"></i>
+            </a>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <img src="/img/WhatsApp Image 2025-12-19 at 19.15.01_e3775ca0.jpg" alt="Foto Tegar" className="w-64 h-64 rounded-full border-4 border-pink-300 object-cover shadow-lg" />
+        </div>
+      </section>
+
+      {/* Skills Preview */}
+      <section className="px-[8%] py-20">
+        <h2 className="text-4xl font-bold text-center mb-2">Skills</h2>
+        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-gray-800">
+          Technologies I mostly work with
+        </p>
+
+        <div className="grid grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+          <div className="bg-gray-100 p-4 rounded-xl hover:-translate-y-1.5 transition shadow">
+            <h4 className="font-bold mb-3">Frontend</h4>
+            <div className="flex flex-wrap gap-2">
+              {['HTML', 'CSS', 'JavaScript', 'React', 'Tailwind CSS'].map(tech => (
+                <span key={tech} className="inline-block bg-white text-gray-700 px-3 py-1 rounded-full text-sm border border-gray-300">
+                  {tech}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="bg-gray-100 p-4 rounded-xl hover:-translate-y-1.5 transition shadow">
+            <h4 className="font-bold mb-3">Backend</h4>
+            <div className="flex flex-wrap gap-2">
+              <span className="inline-block bg-white text-gray-700 px-3 py-1 rounded-full text-sm border border-gray-300">
+                Express
+              </span>
+            </div>
+          </div>
+
+          <div className="bg-gray-100 p-4 rounded-xl hover:-translate-y-1.5 transition shadow">
+            <h4 className="font-bold mb-3">Tools</h4>
+            <div className="flex flex-wrap gap-2">
+              {['Git', 'GitHub', 'VS Code', 'Vercel'].map(tool => (
+                <span key={tool} className="inline-block bg-white text-gray-700 px-3 py-1 rounded-full text-sm border border-gray-300">
+                  {tool}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="text-center">
+          <Link to="/skills" className="inline-block border-2 border-pink-400 text-pink-500 px-7 py-3 rounded-full font-bold hover:bg-gradient-to-r hover:from-pink-300 hover:to-blue-300 hover:text-white hover:-translate-y-0.5 transition">
+            See more skills →
+          </Link>
+        </div>
+      </section>
+
+      {/* Projects Preview */}
+      <section className="px-[8%] py-20 bg-gray-50">
+        <h2 className="text-4xl font-bold text-center mb-2">Projects</h2>
+        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-gray-800">
+          Works I've built
+        </p>
+
+        {loading ? (
+          <div className="flex justify-center py-12">
+            <div className="w-12 h-12 border-4 border-pink-400 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+        ) : projects.length > 0 ? (
+          <>
+            <div className="grid grid-cols-3 gap-7 mb-8">
+              {projects.slice(0, 3).map(project => (
+                <ProjectCard key={project.id} project={project} />
+              ))}
+            </div>
+            <div className="text-center">
+              <Link to="/projects" className="inline-block border-2 border-pink-400 text-pink-500 px-7 py-3 rounded-full font-bold hover:bg-gradient-to-r hover:from-pink-300 hover:to-blue-300 hover:text-white hover:-translate-y-0.5 transition">
+                See more projects →
+              </Link>
+            </div>
+          </>
+        ) : (
+          <p className="text-center text-gray-600">No projects yet. Check back soon!</p>
+        )}
+      </section>
+
+      {/* Experience */}
+      <section className="px-[8%] py-20">
+        <h2 className="text-4xl font-bold text-center mb-2">Experience</h2>
+        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-gray-800">
+          Organization & activities
+        </p>
+
+        <div className="max-w-2xl mx-auto space-y-6">
+          <div className="pl-6 border-l-4 border-gray-800">
+            <h4 className="font-bold text-lg">Staff Kewirausahaan — HMIF UNSRI</h4>
+            <p className="text-gray-600 mt-1">Aktif berkontribusi dalam mengelola program kewirausahaan di HMIF.</p>
+          </div>
+
+          <div className="pl-6 border-l-4 border-gray-800">
+            <h4 className="font-bold text-lg">Frontend Developer — LEX.DEV</h4>
+            <p className="text-gray-600 mt-1">Bergabung di tim LEX.DEV sebagai Frontend Developer.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}
