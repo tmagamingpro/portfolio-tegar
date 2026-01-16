@@ -13,7 +13,7 @@ function AdminRedirect() {
   useEffect(() => {
     const adminUrl =
       import.meta.env.VITE_ADMIN_URL ||
-      "https://admin-dashboard-tegar.vercel.app";
+      "https://portfolio-tegar-admin.vercel.app";
     window.location.href = adminUrl;
   }, []);
 
