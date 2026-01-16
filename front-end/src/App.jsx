@@ -1,39 +1,54 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import ScrollTopButton from "./components/ScrollTopButton";
-import LoadingScreen from "./components/LoadingScreen";
-
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Projects from "./pages/Projects";
 import Skills from "./pages/Skills";
+import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 
-export default function App() {
-  const [loading, setLoading] = useState(true);
-
+// Component untuk redirect ke admin
+function AdminRedirect() {
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 1500);
-    return () => clearTimeout(timer);
+    const adminUrl =
+      import.meta.env.VITE_ADMIN_URL ||
+      "https://admin-dashboard-tegar.vercel.app";
+    window.location.href = adminUrl;
   }, []);
 
   return (
-    <Router>
-      <LoadingScreen visible={loading} />
-      <Navbar />
-      <div className="pt-16">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/skills" element={<Skills />} />
-          <Route path="/contact" element={<Contact />} />
-        </Routes>
+    <div className="flex items-center justify-center h-screen bg-white">
+      <div className="text-center">
+        <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+        <p className="text-gray-600 font-semibold">
+          Redirecting to Admin Dashboard...
+        </p>
       </div>
-      <Footer />
-      <ScrollTopButton />
+    </div>
+  );
+}
+
+export default function App() {
+  return (
+    <Router>
+      <div className="flex flex-col min-h-screen">
+        <Navbar />
+        <main className="flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/skills" element={<Skills />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/contact" element={<Contact />} />
+
+            {/* Admin Redirect Routes */}
+            <Route path="/admin" element={<AdminRedirect />} />
+            <Route path="/admin/*" element={<AdminRedirect />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </Router>
   );
 }
