@@ -1,35 +1,39 @@
+import { useState } from 'react';
+
 export default function ProjectCard({ project, onUnavailable }) {
+  const [imageFailed, setImageFailed] = useState(false);
+
+  const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app';
+
   const getImageUrl = (project) => {
-    if (!project) return '/img/project/default.jpg';
+    if (!project) return null;
 
-    console.log('Project image field:', project.image);
+    const imageField = project.image || project.imageUrl || project.image_url;
 
-    // Jika image adalah URL lengkap (http/https)
-    if (project.image && (project.image.startsWith('http://') || project.image.startsWith('https://'))) {
-      return project.image;
+    if (!imageField) {
+      console.warn('❌ No image field in project:', project.title);
+      return null;
     }
 
-    // Jika image dimulai dengan /
-    if (project.image && project.image.startsWith('/')) {
-      return project.image;
+    // Jika sudah URL lengkap
+    if (imageField.startsWith('http')) {
+      return imageField;
     }
 
-    // Jika hanya nama file, tambahkan path /img/project/
-    if (project.image) {
-      return `/img/project/${project.image}`;
-    }
-
-    // Fallback
-    return '/img/project/default.jpg';
+    // Jika path uploads
+    return `${API_BASE}${imageField}`;
   };
 
   const imageUrl = getImageUrl(project);
-  console.log('Final image URL:', imageUrl);
+
+  console.log('🖼️ ProjectCard - Title:', project.title, 'Image URL:', imageUrl);
 
   const handleImageError = (e) => {
-    console.error('Image failed to load:', imageUrl);
-    e.target.src = '/img/project/default.jpg';
-    e.target.alt = 'Project image not found';
+    if (!imageFailed) {
+      console.error('❌ Failed to load image:', imageUrl, 'Status:', e.target.status);
+      setImageFailed(true);
+      e.target.src = 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect fill="%23e5e7eb" width="300" height="200"/%3E%3Ctext x="50%25" y="50%25" font-size="14" fill="%239ca3af" text-anchor="middle" dy=".3em"%3EImage not found%3C/text%3E%3C/svg%3E';
+    }
   };
 
   return (
@@ -39,13 +43,20 @@ export default function ProjectCard({ project, onUnavailable }) {
     >
       {/* Image Container */}
       <div className="relative overflow-hidden h-48 bg-gray-200">
-        <img
-          src={imageUrl}
-          alt={project.title || 'Project'}
-          className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
-          onError={handleImageError}
-          onLoad={() => console.log('✅ Image loaded:', imageUrl)}
-        />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={project.title || 'Project'}
+            className="w-full h-full object-cover group-hover:scale-110 transition duration-300"
+            onError={handleImageError}
+            onLoad={() => console.log('✅ Image loaded:', project.title)}
+            crossOrigin="anonymous"
+          />
+        ) : (
+          <div className="w-full h-full bg-gradient-to-r from-gray-300 to-gray-400 flex items-center justify-center">
+            <span className="text-gray-600 text-sm">No image</span>
+          </div>
+        )}
       </div>
 
       {/* Content */}
