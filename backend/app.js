@@ -30,6 +30,11 @@ process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
 
+// Health check endpoint to prevent Railway from sleeping the app
+app.get('/health', (req, res) => {
+  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+});
+
 // Bind explicitly to 0.0.0.0 to ensure the server listens on all interfaces
 app.listen(PORT, '0.0.0.0', () => {
   console.log(`Backend running at http://0.0.0.0:${PORT} (CLIENT_ORIGIN=${CLIENT_ORIGIN})`);
