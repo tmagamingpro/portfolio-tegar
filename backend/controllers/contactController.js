@@ -3,11 +3,29 @@ import crypto from 'crypto';
 
 const DATA_PATH = './data/contacts.json';
 
-const readData = () =>
-  JSON.parse(fs.readFileSync(DATA_PATH, 'utf-8'));
+const readData = () => {
+  try {
+    if (!fs.existsSync(DATA_PATH)) {
+      console.log(`Data file ${DATA_PATH} not found, creating empty array`);
+      fs.writeFileSync(DATA_PATH, '[]');
+      return [];
+    }
+    const data = fs.readFileSync(DATA_PATH, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading data file:', err);
+    return [];
+  }
+};
 
-const writeData = (data) =>
-  fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
+const writeData = (data) => {
+  try {
+    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
+  } catch (err) {
+    console.error('Error writing data file:', err);
+    throw err;
+  }
+};
 
 // READ
 export const getAll = (req, res) => {
