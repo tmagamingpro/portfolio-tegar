@@ -32,7 +32,16 @@ process.on('uncaughtException', (err) => {
 
 // Health check endpoint to prevent Railway from sleeping the app
 app.get('/health', (req, res) => {
-  res.status(200).json({ status: 'OK', timestamp: new Date().toISOString() });
+  const memUsage = process.memoryUsage();
+  res.status(200).json({
+    status: 'OK',
+    timestamp: new Date().toISOString(),
+    memory: {
+      rss: `${Math.round(memUsage.rss / 1024 / 1024)}MB`,
+      heapUsed: `${Math.round(memUsage.heapUsed / 1024 / 1024)}MB`,
+      heapTotal: `${Math.round(memUsage.heapTotal / 1024 / 1024)}MB`
+    }
+  });
 });
 
 // Bind explicitly to 0.0.0.0 to ensure the server listens on all interfaces
