@@ -9,7 +9,7 @@ export default defineConfig({
     strictPort: false
   },
   define: {
-    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app'),
+    'import.meta.env.VITE_API_URL': JSON.stringify(process.env.VITE_API_URL || (process.env.NODE_ENV === 'production' ? 'https://portfolio-tegar-production-bed1.up.railway.app' : 'http://localhost:5000')),
     'import.meta.env.VITE_ADMIN_URL': JSON.stringify(process.env.VITE_ADMIN_URL || 'https://portfolio-tegar-admin.vercel.app')
   }
 })
