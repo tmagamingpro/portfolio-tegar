@@ -12,7 +12,8 @@ app.get("/", (req, res) => {
 });
 
 // Configure CORS to allow requests from the frontend origin (set CLIENT_ORIGIN in production)
-app.use(cors({ origin: CLIENT_ORIGIN }));
+const allowedOrigins = CLIENT_ORIGIN !== '*' ? [CLIENT_ORIGIN] : ['http://localhost:3000', 'http://localhost:5173', 'https://portfolio-tegar-finale.vercel.app'];
+app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/uploads', express.static('uploads'));
