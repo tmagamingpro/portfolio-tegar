@@ -14,5 +14,8 @@
   },
   "keywords": ["portfolio", "react", "vercel"],
   "author": "Tegar",
-  "license": "ISC"
+  "license": "ISC",
+  "engines": {
+    "node": "24.x"
+  }
 }
