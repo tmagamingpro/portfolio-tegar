@@ -1,5 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar.vercel.app/api';
-const BASE_URL = `${API_BASE}/projects`;
+const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-backend.vercel.app';
+const BASE_URL = `${API_BASE}/api/projects`;
 
 export const getProjects = async () => {
   try {
