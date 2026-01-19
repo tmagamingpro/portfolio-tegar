@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "api/contacts.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "api/projects.js",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/contacts",
+      "dest": "/api/contacts.js"
+    },
+    {
+      "src": "/api/projects",
+      "dest": "/api/projects.js"
+    },
+    {
+      "src": "/api/projects/(.*)",
+      "dest": "/api/projects.js"
+    }
+  ]
+}

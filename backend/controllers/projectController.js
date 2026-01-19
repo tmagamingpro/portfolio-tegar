@@ -1,41 +1,37 @@
 import fs from 'fs';
-import crypto from 'crypto';
 import path from 'path';
+import { fileURLToPath } from 'url';
 
-const DATA_PATH = './data/projects.json';
-const UPLOADS_DIR = './uploads';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const readData = () => {
-  try {
-    if (!fs.existsSync(DATA_PATH)) {
-      console.log(`Data file ${DATA_PATH} not found, creating empty array`);
-      fs.writeFileSync(DATA_PATH, '[]');
-      return [];
-    }
-    const data = fs.readFileSync(DATA_PATH, 'utf-8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error('Error reading data file:', err);
-    return [];
-  }
-};
-
-const writeData = (data) => {
-  try {
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
-  } catch (err) {
-    console.error('Error writing data file:', err);
-    throw err;
-  }
-};
+const projectsFilePath = path.join(__dirname, '..', 'data', 'projects.json');
 
 // READ
-export const getAll = (req, res) => {
-  res.json(readData());
+export const getAll = async (req, res) => {
+  try {
+    if (!fs.existsSync(projectsFilePath)) {
+      fs.writeFileSync(projectsFilePath, '[]');
+    }
+
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    // Sort by created_at if exists, otherwise return as is
+    const sortedProjects = projects.sort((a, b) => {
+      if (a.created_at && b.created_at) {
+        return new Date(b.created_at) - new Date(a.created_at);
+      }
+      return 0;
+    });
+
+    res.json(sortedProjects);
+  } catch (err) {
+    console.error('Error fetching projects:', err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // CREATE
-export const create = (req, res) => {
+export const create = async (req, res) => {
   try {
     console.log('Create project - headers:', req.headers);
     console.log('Create project - file:', req.file);
@@ -45,34 +41,48 @@ export const create = (req, res) => {
       return res.status(400).json({ error: 'Missing request body' });
     }
 
-    const projects = readData();
+    if (!fs.existsSync(projectsFilePath)) {
+      fs.writeFileSync(projectsFilePath, '[]');
+    }
+
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
 
     // support both stringified tech and array
     const techField = typeof req.body.tech === 'string' ? req.body.tech : JSON.stringify(req.body.tech || "[]");
 
     const newProject = {
-      id: crypto.randomUUID(),
+      id: `proj-${Date.now()}`,
       title: req.body.title || '',
       description: req.body.description || '',
       image: req.file ? `/uploads/${req.file.filename}` : '',
       tech: JSON.parse(techField || "[]"),
-      githubLink: req.body.githubLink || ''
+      github_link: req.body.githubLink || '',
+      created_at: new Date().toISOString()
     };
 
     projects.push(newProject);
-    writeData(projects);
+    fs.writeFileSync(projectsFilePath, JSON.stringify(projects, null, 2));
 
     res.status(201).json(newProject);
   } catch (err) {
     console.error('Error in create project:', err);
-    res.status(500).json({ error: err.message, stack: err.stack });
+    res.status(500).json({ error: err.message });
   }
 };
 
 // UPDATE
-export const update = (req, res) => {
+export const update = async (req, res) => {
   try {
-    const projects = readData();
+    if (!fs.existsSync(projectsFilePath)) {
+      return res.status(404).json({ error: 'Projects data not found' });
+    }
+
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    const projectIndex = projects.findIndex(p => p.id === req.params.id);
+
+    if (projectIndex === -1) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
 
     // prepare updated fields
     const updatedFields = { ...req.body };
@@ -94,17 +104,19 @@ export const update = (req, res) => {
       }
     }
 
-    // handle updated image if uploaded
-    if (req.file) {
-      updatedFields.image = `/uploads/${req.file.filename}`;
-    }
+    // map field names to database columns
+    const dbFields = {
+      title: updatedFields.title,
+      description: updatedFields.description,
+      image: updatedFields.image,
+      tech: updatedFields.tech,
+      github_link: updatedFields.githubLink
+    };
 
-    const updated = projects.map(p =>
-      p.id === req.params.id ? { ...p, ...updatedFields } : p
-    );
+    Object.assign(projects[projectIndex], dbFields);
+    fs.writeFileSync(projectsFilePath, JSON.stringify(projects, null, 2));
 
-    writeData(updated);
-    res.json(updated.find(p => p.id === req.params.id));
+    res.json(projects[projectIndex]);
   } catch (err) {
     console.error('Error in update project:', err);
     res.status(500).json({ error: err.message });
@@ -112,29 +124,20 @@ export const update = (req, res) => {
 };
 
 // DELETE
-export const remove = (req, res) => {
+export const remove = async (req, res) => {
   try {
-    const projects = readData();
-    const toRemove = projects.find(p => p.id === req.params.id);
-
-    const filtered = projects.filter(p => p.id !== req.params.id);
-
-    writeData(filtered);
-
-    // remove uploaded image file if exists and located in uploads dir
-    if (toRemove && toRemove.image) {
-      const imgPath = toRemove.image.startsWith('/uploads/') ? toRemove.image.replace(/^\//, '') : toRemove.image;
-      const fullPath = path.join(process.cwd(), imgPath);
-      try {
-        if (fs.existsSync(fullPath)) {
-          fs.unlinkSync(fullPath);
-          console.log('Deleted uploaded file:', fullPath);
-        }
-      } catch (err) {
-        console.error('Failed deleting uploaded file', fullPath, err);
-      }
+    if (!fs.existsSync(projectsFilePath)) {
+      return res.status(404).json({ error: 'Projects data not found' });
     }
 
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    const filteredProjects = projects.filter(p => p.id !== req.params.id);
+
+    if (filteredProjects.length === projects.length) {
+      return res.status(404).json({ error: 'Project not found' });
+    }
+
+    fs.writeFileSync(projectsFilePath, JSON.stringify(filteredProjects, null, 2));
     res.sendStatus(204);
   } catch (err) {
     console.error('Error in delete project:', err);

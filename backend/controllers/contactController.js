@@ -1,51 +1,55 @@
 import fs from 'fs';
-import crypto from 'crypto';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import pkg from 'uuid';
+const { v4: uuidv4 } = pkg;
 
-const DATA_PATH = './data/contacts.json';
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const readData = () => {
-  try {
-    if (!fs.existsSync(DATA_PATH)) {
-      console.log(`Data file ${DATA_PATH} not found, creating empty array`);
-      fs.writeFileSync(DATA_PATH, '[]');
-      return [];
-    }
-    const data = fs.readFileSync(DATA_PATH, 'utf-8');
-    return JSON.parse(data);
-  } catch (err) {
-    console.error('Error reading data file:', err);
-    return [];
-  }
-};
-
-const writeData = (data) => {
-  try {
-    fs.writeFileSync(DATA_PATH, JSON.stringify(data, null, 2));
-  } catch (err) {
-    console.error('Error writing data file:', err);
-    throw err;
-  }
-};
+const contactsFilePath = path.join(__dirname, '..', 'data', 'contacts.json');
 
 // READ
-export const getAll = (req, res) => {
-  res.json(readData());
+export const getAll = async (req, res) => {
+  try {
+    if (!fs.existsSync(contactsFilePath)) {
+      fs.writeFileSync(contactsFilePath, '[]');
+    }
+
+    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8'));
+    // Sort by createdAt descending
+    const sortedContacts = contacts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+
+    res.json(sortedContacts);
+  } catch (err) {
+    console.error('Error fetching contacts:', err);
+    res.status(500).json({ error: err.message });
+  }
 };
 
 // CREATE
-export const create = (req, res) => {
-  const contacts = readData();
+export const create = async (req, res) => {
+  try {
+    if (!fs.existsSync(contactsFilePath)) {
+      fs.writeFileSync(contactsFilePath, '[]');
+    }
 
-  const newContact = {
-    id: crypto.randomUUID(),
-    name: req.body.name,
-    email: req.body.email,
-    message: req.body.message,
-    createdAt: new Date()
-  };
+    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8'));
 
-  contacts.push(newContact);
-  writeData(contacts);
+    const newContact = {
+      id: uuidv4(),
+      name: req.body.name || '',
+      email: req.body.email || '',
+      message: req.body.message || '',
+      createdAt: new Date().toISOString()
+    };
 
-  res.status(201).json(newContact);
+    contacts.push(newContact);
+    fs.writeFileSync(contactsFilePath, JSON.stringify(contacts, null, 2));
+
+    res.status(201).json(newContact);
+  } catch (err) {
+    console.error('Error creating contact:', err);
+    res.status(500).json({ error: err.message });
+  }
 };

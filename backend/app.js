@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import contactsRoutes from './routes/contactRoutes.js';
@@ -16,6 +17,8 @@ const allowedOrigins = CLIENT_ORIGIN !== '*' ? [CLIENT_ORIGIN] : ['http://localh
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Serve static files from uploads folder
 app.use('/uploads', express.static('uploads'));
 
 app.use('/api/contacts', contactsRoutes);
@@ -30,17 +33,12 @@ process.on('uncaughtException', (err) => {
   console.error('Uncaught Exception:', err);
 });
 
-// Health check endpoint to prevent Railway from sleeping the app
+// Health check endpoint
 app.get('/health', (req, res) => {
-  const memUsage = process.memoryUsage();
   res.status(200).json({
     status: 'OK',
     timestamp: new Date().toISOString(),
-    memory: {
-      rss: `${Math.round(memUsage.rss / 1024 / 1024)}MB`,
-      heapUsed: `${Math.round(memUsage.heapUsed / 1024 / 1024)}MB`,
-      heapTotal: `${Math.round(memUsage.heapTotal / 1024 / 1024)}MB`
-    }
+    storage: 'JSON files'
   });
 });
 

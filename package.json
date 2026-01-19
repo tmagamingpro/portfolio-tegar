@@ -1,0 +1,18 @@
+{
+  "name": "portfolio-tegar",
+  "version": "1.0.0",
+  "description": "Portfolio website with admin dashboard",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'No build step required'",
+    "start": "vercel dev",
+    "test-api": "node test-api.js"
+  },
+  "dependencies": {
+    "uuid": "^9.0.1"
+  },
+  "keywords": ["portfolio", "react", "vercel"],
+  "author": "Tegar",
+  "license": "ISC"
+}
