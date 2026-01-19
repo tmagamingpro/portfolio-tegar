@@ -1,5 +1,5 @@
 // src/api/projects.js
-const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar.vercel.app/api';
+const API_BASE = import.meta.env.VITE_API_URL || 'https://tegar-portofolio-admin.vercel.app/api';
 const BASE_URL = `${API_BASE}/projects`;
 
 // READ
