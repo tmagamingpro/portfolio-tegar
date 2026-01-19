@@ -5,7 +5,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const projectsFilePath = path.join(__dirname, '..', 'data', 'projects.json');
+const projectsFilePath = path.join(process.env.VERCEL ? '/tmp' : __dirname, '..', 'data', 'projects.json');
 
 // READ
 export const getAll = async (req, res) => {

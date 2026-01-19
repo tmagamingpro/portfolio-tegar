@@ -7,7 +7,7 @@ const { v4: uuidv4 } = pkg;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const contactsFilePath = path.join(__dirname, '..', 'data', 'contacts.json');
+const contactsFilePath = path.join(process.env.VERCEL ? '/tmp' : __dirname, '..', 'data', 'contacts.json');
 
 // READ
 export const getAll = async (req, res) => {

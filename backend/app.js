@@ -1,8 +1,10 @@
-import 'dotenv/config';
+// import 'dotenv/config';
 import express from 'express';
 import cors from 'cors';
 import contactsRoutes from './routes/contactRoutes.js';
 import projectsRoutes from './routes/projectRoutes.js';
+
+console.log('Starting backend server...');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -19,10 +21,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from uploads folder
-app.use('/uploads', express.static('uploads'));
+// app.use('/uploads', express.static('uploads'));
 
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/projects', projectsRoutes);
+
+//error handling middleware
+app.use((err, req, res, next) => {
+  console.error('error:', err);
+  res.status(500).json({ error: 'Something went wrong!' });
+});
 
 // Log unhandled errors to help debugging on hosting platforms
 process.on('unhandledRejection', (reason, promise) => {
