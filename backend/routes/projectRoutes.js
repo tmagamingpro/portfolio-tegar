@@ -8,7 +8,13 @@ const router = express.Router();
 //   destination: (req, file, cb) => cb(null, './uploads'), 
 //   filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
 // });
-const storage = multer.memoryStorage();
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = process.env.VERCEL ? '/tmp/uploads' : 'uploads';
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => cb(null, Date.now() + '-' + file.originalname)
+});
 const upload = multer({ storage });
 
 router.get('/', getAll);

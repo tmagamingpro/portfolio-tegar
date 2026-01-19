@@ -108,7 +108,7 @@ export const update = async (req, res) => {
     const dbFields = {
       title: updatedFields.title,
       description: updatedFields.description,
-      image: updatedFields.image,
+      image: req.file ? `/uploads/${req.file.filename}` : updatedFields.image,
       tech: updatedFields.tech,
       github_link: updatedFields.githubLink
     };

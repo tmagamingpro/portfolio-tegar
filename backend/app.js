@@ -15,13 +15,16 @@ app.get("/", (req, res) => {
 });
 
 // Configure CORS to allow requests from the frontend origin (set CLIENT_ORIGIN in production)
-const allowedOrigins = CLIENT_ORIGIN !== '*' ? [CLIENT_ORIGIN] : ['http://localhost:3000', 'http://localhost:5173', 'https://portfolio-tegar-finale.vercel.app'];
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('favicon.png', (req, res) => res.status(204).end());
+
 app.use(cors({ origin: allowedOrigins }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from uploads folder
-// app.use('/uploads', express.static('uploads'));
+const uploadPath = process.env.VERCEL ? '/tmp/uploads' : 'uploads';
+app.use('/uploads', express.static(uploadPath));
 
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/projects', projectsRoutes);

@@ -1,8 +1,8 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import pkg from 'uuid';
-const { v4: uuidv4 } = pkg;
+import { randomUUID } from 'crypto';
+import { random } from 'animejs';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,7 +37,7 @@ export const create = async (req, res) => {
     const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8'));
 
     const newContact = {
-      id: uuidv4(),
+      id: randomUUID(),
       name: req.body.name || '',
       email: req.body.email || '',
       message: req.body.message || '',
