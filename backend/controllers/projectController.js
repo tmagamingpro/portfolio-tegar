@@ -5,16 +5,25 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const projectsFilePath = path.join(process.env.VERCEL ? '/tmp' : __dirname, '..', 'data', 'projects.json');
+const dataRoot = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..');
+const projectsFilePath = path.join(dataRoot, 'data', 'projects.json');
+
+const ensureProjectsFile = () => {
+  const dir = path.dirname(projectsFilePath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  if (!fs.existsSync(projectsFilePath)) {
+    fs.writeFileSync(projectsFilePath, '[]');
+  }
+};
 
 // READ
 export const getAll = async (req, res) => {
   try {
-    if (!fs.existsSync(projectsFilePath)) {
-      fs.writeFileSync(projectsFilePath, '[]');
-    }
+    ensureProjectsFile();
 
-    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8') || '[]');
     // Sort by created_at if exists, otherwise return as is
     const sortedProjects = projects.sort((a, b) => {
       if (a.created_at && b.created_at) {
@@ -41,11 +50,9 @@ export const create = async (req, res) => {
       return res.status(400).json({ error: 'Missing request body' });
     }
 
-    if (!fs.existsSync(projectsFilePath)) {
-      fs.writeFileSync(projectsFilePath, '[]');
-    }
+    ensureProjectsFile();
 
-    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8') || '[]');
 
     // support both stringified tech and array
     const techField = typeof req.body.tech === 'string' ? req.body.tech : JSON.stringify(req.body.tech || "[]");
@@ -73,11 +80,9 @@ export const create = async (req, res) => {
 // UPDATE
 export const update = async (req, res) => {
   try {
-    if (!fs.existsSync(projectsFilePath)) {
-      return res.status(404).json({ error: 'Projects data not found' });
-    }
+    ensureProjectsFile();
 
-    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8') || '[]');
     const projectIndex = projects.findIndex(p => p.id === req.params.id);
 
     if (projectIndex === -1) {
@@ -126,11 +131,9 @@ export const update = async (req, res) => {
 // DELETE
 export const remove = async (req, res) => {
   try {
-    if (!fs.existsSync(projectsFilePath)) {
-      return res.status(404).json({ error: 'Projects data not found' });
-    }
+    ensureProjectsFile();
 
-    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8'));
+    const projects = JSON.parse(fs.readFileSync(projectsFilePath, 'utf8') || '[]');
     const filteredProjects = projects.filter(p => p.id !== req.params.id);
 
     if (filteredProjects.length === projects.length) {

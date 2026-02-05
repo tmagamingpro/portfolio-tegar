@@ -6,16 +6,25 @@ import { randomUUID } from 'crypto';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const contactsFilePath = path.join(process.env.VERCEL ? '/tmp' : __dirname, '..', 'data', 'contacts.json');
+const dataRoot = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..');
+const contactsFilePath = path.join(dataRoot, 'data', 'contacts.json');
+
+const ensureContactsFile = () => {
+  const dir = path.dirname(contactsFilePath);
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true });
+  }
+  if (!fs.existsSync(contactsFilePath)) {
+    fs.writeFileSync(contactsFilePath, '[]');
+  }
+};
 
 // READ
 export const getAll = async (req, res) => {
   try {
-    if (!fs.existsSync(contactsFilePath)) {
-      fs.writeFileSync(contactsFilePath, '[]');
-    }
+    ensureContactsFile();
 
-    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8'));
+    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8') || '[]');
     // Sort by createdAt descending
     const sortedContacts = contacts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
@@ -29,11 +38,9 @@ export const getAll = async (req, res) => {
 // CREATE
 export const create = async (req, res) => {
   try {
-    if (!fs.existsSync(contactsFilePath)) {
-      fs.writeFileSync(contactsFilePath, '[]');
-    }
+    ensureContactsFile();
 
-    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8'));
+    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8') || '[]');
 
     const newContact = {
       id: randomUUID(),
