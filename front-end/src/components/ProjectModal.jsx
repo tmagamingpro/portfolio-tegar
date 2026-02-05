@@ -5,7 +5,14 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
   if (!isOpen || !project) return null;
 
-  const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-backend.vercel.app';
+  const resolveApiBase = () => {
+    const raw = (import.meta.env.VITE_API_URL || '').trim();
+    const runtimeOrigin = typeof window !== 'undefined' ? window.location.origin : '';
+    if (!raw || raw === runtimeOrigin) return 'https://portfolio-tegar-backend.vercel.app';
+    if (!raw.startsWith('http')) return 'https://portfolio-tegar-backend.vercel.app';
+    return raw;
+  };
+  const API_BASE = resolveApiBase();
 
   const getImageUrl = (imageField) => {
     if (!imageField) return null;
