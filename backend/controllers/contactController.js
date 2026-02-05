@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 
 const dataRoot = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..');
 const contactsFilePath = path.join(dataRoot, 'data', 'contacts.json');
+const bundledContactsPath = path.join(__dirname, '..', 'data', 'contacts.json');
 
 const ensureContactsFile = () => {
   const dir = path.dirname(contactsFilePath);
@@ -15,7 +16,12 @@ const ensureContactsFile = () => {
     fs.mkdirSync(dir, { recursive: true });
   }
   if (!fs.existsSync(contactsFilePath)) {
-    fs.writeFileSync(contactsFilePath, '[]');
+    if (process.env.VERCEL && fs.existsSync(bundledContactsPath)) {
+      const seed = fs.readFileSync(bundledContactsPath, 'utf8');
+      fs.writeFileSync(contactsFilePath, seed || '[]');
+    } else {
+      fs.writeFileSync(contactsFilePath, '[]');
+    }
   }
 };
 
