@@ -9,6 +9,7 @@ console.log('Starting backend server...');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || '*';
+const IS_VERCEL = Boolean(process.env.VERCEL);
 const allowedOrigins = CLIENT_ORIGIN.split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
@@ -29,7 +30,7 @@ app.use(
         return callback(null, true);
       }
       if (allowedOrigins.includes(origin)) return callback(null, true);
-      return callback(new Error('Not allowed by CORS'));
+      return callback(null, false);
     }
   })
 );
@@ -68,8 +69,10 @@ app.get('/health', (req, res) => {
 });
 
 // Bind explicitly to 0.0.0.0 to ensure the server listens on all interfaces
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Backend running at http://0.0.0.0:${PORT} (CLIENT_ORIGIN=${CLIENT_ORIGIN})`);
-});
+if (!IS_VERCEL) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Backend running at http://0.0.0.0:${PORT} (CLIENT_ORIGIN=${CLIENT_ORIGIN})`);
+  });
+}
 
 export default app;
