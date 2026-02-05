@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { randomUUID } from 'crypto';
+import { supabase, supabaseEnabled } from '../lib/supabase.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -9,7 +10,6 @@ const __dirname = path.dirname(__filename);
 const dataRoot = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..');
 const contactsFilePath = path.join(dataRoot, 'data', 'contacts.json');
 const bundledContactsPath = path.join(__dirname, '..', 'data', 'contacts.json');
-
 const ensureContactsFile = () => {
   const dir = path.dirname(contactsFilePath);
   if (!fs.existsSync(dir)) {
@@ -25,12 +25,38 @@ const ensureContactsFile = () => {
   }
 };
 
+const readContacts = async () => {
+  if (supabaseEnabled) {
+    const { data, error } = await supabase
+      .from('contacts')
+      .select('*')
+      .order('createdAt', { ascending: false });
+    if (error) throw error;
+    return data || [];
+  }
+  ensureContactsFile();
+  return JSON.parse(fs.readFileSync(contactsFilePath, 'utf8') || '[]');
+};
+
+const writeContacts = async (contacts) => {
+  if (supabaseEnabled) {
+    return;
+  }
+  ensureContactsFile();
+  fs.writeFileSync(contactsFilePath, JSON.stringify(contacts, null, 2));
+};
+
 // READ
 export const getAll = async (req, res) => {
   try {
-    ensureContactsFile();
-
-    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8') || '[]');
+    let contacts = await readContacts();
+    if (!supabaseEnabled && contacts.length === 0 && fs.existsSync(bundledContactsPath)) {
+      const seed = JSON.parse(fs.readFileSync(bundledContactsPath, 'utf8') || '[]');
+      if (Array.isArray(seed) && seed.length > 0) {
+        contacts = seed;
+        await writeContacts(seed);
+      }
+    }
     // Sort by createdAt descending
     const sortedContacts = contacts.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
 
@@ -44,10 +70,6 @@ export const getAll = async (req, res) => {
 // CREATE
 export const create = async (req, res) => {
   try {
-    ensureContactsFile();
-
-    const contacts = JSON.parse(fs.readFileSync(contactsFilePath, 'utf8') || '[]');
-
     const newContact = {
       id: randomUUID(),
       name: req.body.name || '',
@@ -56,8 +78,15 @@ export const create = async (req, res) => {
       createdAt: new Date().toISOString()
     };
 
+    if (supabaseEnabled) {
+      const { data, error } = await supabase.from('contacts').insert(newContact).select().single();
+      if (error) throw error;
+      return res.status(201).json(data);
+    }
+
+    const contacts = await readContacts();
     contacts.push(newContact);
-    fs.writeFileSync(contactsFilePath, JSON.stringify(contacts, null, 2));
+    await writeContacts(contacts);
 
     res.status(201).json(newContact);
   } catch (err) {
