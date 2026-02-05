@@ -3,6 +3,8 @@ import express from 'express';
 import cors from 'cors';
 import contactsRoutes from './routes/contactRoutes.js';
 import projectsRoutes from './routes/projectRoutes.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 console.log('Starting backend server...');
 
@@ -13,6 +15,9 @@ const IS_VERCEL = Boolean(process.env.VERCEL);
 const allowedOrigins = CLIENT_ORIGIN.split(',')
   .map((origin) => origin.trim())
   .filter(Boolean);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 app.get("/", (req, res) => {
   res.send("Backend is alive! 👋");
@@ -38,8 +43,12 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Serve static files from uploads folder
-const uploadPath = process.env.VERCEL ? '/tmp/uploads' : 'uploads';
+const uploadPath = process.env.VERCEL ? '/tmp/uploads' : path.join(__dirname, 'uploads');
 app.use('/uploads', express.static(uploadPath));
+// Fallback to bundled uploads in deployment (for seeded images)
+if (process.env.VERCEL) {
+  app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+}
 
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/projects', projectsRoutes);
