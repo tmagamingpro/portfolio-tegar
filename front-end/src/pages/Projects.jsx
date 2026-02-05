@@ -50,11 +50,11 @@ export default function Projects() {
 
   return (
     <main className="bg-white min-h-screen">
-      <section className="px-[8%] py-20">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           My Projects
         </h2>
-        <p className="text-center text-gray-600 mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Portfolio of works I've created & contributed to
         </p>
 
@@ -67,10 +67,10 @@ export default function Projects() {
           </div>
         ) : error ? (
           <div className="max-w-2xl mx-auto bg-red-50 border-2 border-red-400 p-6 rounded-lg">
-            <p className="text-red-700 font-semibold">❌ Error: {error}</p>
+            <p className="text-red-700 font-semibold text-sm sm:text-base">❌ Error: {error}</p>
           </div>
         ) : projects.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 max-w-6xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 max-w-6xl mx-auto">
             {projects.map((project) => (
               <ProjectCard
                 key={project.id}

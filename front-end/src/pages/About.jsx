@@ -55,14 +55,14 @@ export default function About() {
   return (
     <main className="bg-white min-h-screen">
       {/* Timeline */}
-      <section className="px-[8%] py-20">
-        <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Perjalanan Saya
         </h2>
         
         <div className="max-w-2xl mx-auto">
           {timeline.map((item, idx) => (
-            <div key={idx} className="flex gap-6 mb-8 relative">
+            <div key={idx} className="flex gap-4 sm:gap-6 mb-8 relative">
               <div className="flex flex-col items-center">
                 <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                 {idx !== timeline.length - 1 && (
@@ -70,9 +70,9 @@ export default function About() {
                 )}
               </div>
               <div>
-                <p className="font-bold text-purple-500">{item.year}</p>
-                <h4 className="text-lg font-bold text-gray-800">{item.title}</h4>
-                <p className="text-gray-600">{item.desc}</p>
+                <p className="font-bold text-purple-500 text-sm sm:text-base">{item.year}</p>
+                <h4 className="text-base sm:text-lg font-bold text-gray-800">{item.title}</h4>
+                <p className="text-gray-600 text-sm sm:text-base">{item.desc}</p>
               </div>
             </div>
           ))}
@@ -80,34 +80,34 @@ export default function About() {
       </section>
 
       {/* About Cards */}
-      <section className="px-[8%] py-20 bg-white">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Tentang Saya
         </h2>
-        <p className="text-center text-gray-600 mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Kenali lebih jauh siapa aku dan apa yang bisa aku kontribusikan
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {aboutCards.map((card, idx) => (
             <div
               key={idx}
               className="bg-white p-6 rounded-xl hover:shadow-lg hover:-translate-y-1 transition border-l-4 border-purple-400 hover:border-pink-400 shadow-md"
             >
-              <div className="text-4xl mb-3">{card.icon}</div>
-              <h3 className="font-bold text-lg mb-2 text-gray-800">{card.title}</h3>
-              <p className="text-gray-600 text-sm">{card.desc}</p>
+              <div className="text-3xl sm:text-4xl mb-3">{card.icon}</div>
+              <h3 className="font-bold text-base sm:text-lg mb-2 text-gray-800">{card.title}</h3>
+              <p className="text-gray-600 text-sm sm:text-base">{card.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
       {/* My Waifu Card */}
-      <section className="px-[8%] py-20 bg-white">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Special Someone
         </h2>
-        <p className="text-center text-gray-600 mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Orang istimewa dalam hidup saya
         </p>
 
@@ -117,7 +117,7 @@ export default function About() {
             onClick={() => setShowWaifuModal(true)}
           >
             {/* Image */}
-            <div className="relative overflow-hidden h-80 bg-gradient-to-br from-purple-200 to-pink-200">
+            <div className="relative overflow-hidden h-64 sm:h-72 bg-gradient-to-br from-purple-200 to-pink-200">
               <img
                 src="/img/WhatsApp Image 2025-10-02 at 13.58.35_bc62ec3b.jpg"
                 alt="My Waifu"
@@ -130,11 +130,11 @@ export default function About() {
 
             {/* Content */}
             <div className="p-6 text-center">
-              <h3 className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
+              <h3 className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-3">
                 My Waifu ❤️
               </h3>
 
-              <p className="text-gray-600 text-sm mb-4 leading-relaxed">
+              <p className="text-gray-600 text-sm sm:text-base mb-4 leading-relaxed">
                 Yang selalu menemani kehidupan saya dan telah menjadi istri sah
               </p>
 
@@ -159,7 +159,7 @@ export default function About() {
             </button>
 
             {/* Image */}
-            <div className="relative w-full h-96 bg-gradient-to-br from-purple-200 to-pink-200 overflow-hidden">
+            <div className="relative w-full h-72 sm:h-80 lg:h-96 bg-gradient-to-br from-purple-200 to-pink-200 overflow-hidden">
               <img
                 src="/img/WhatsApp Image 2025-10-02 at 13.58.35_bc62ec3b.jpg"
                 alt="My Waifu"
@@ -171,12 +171,12 @@ export default function About() {
             </div>
 
             {/* Content */}
-            <div className="p-8">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
+            <div className="p-6 sm:p-8">
+              <h2 className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">
                 My Waifu ❤️
               </h2>
 
-              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+              <p className="text-gray-600 text-base sm:text-lg mb-6 leading-relaxed">
                 Yang selalu menemani kehidupan saya dan telah menjadi istri sah
               </p>
 

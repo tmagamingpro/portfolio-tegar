@@ -37,21 +37,21 @@ export default function Home() {
   return (
     <main className="bg-white">
       {/* Hero Section */}
-      <section className="flex justify-between items-center px-[10%] py-[60px] bg-white">
-        <div className="max-w-[50%]">
+      <section className="flex flex-col-reverse lg:flex-row justify-between items-center gap-10 px-4 sm:px-6 md:px-[8%] py-12 sm:py-16 bg-white">
+        <div className="w-full lg:max-w-[50%] text-center lg:text-left">
           <span className="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white px-4 py-1.5 rounded-full text-sm font-semibold">
             Welcome to my portfolio
           </span>
-          <h1 className="text-5xl font-bold text-gray-800 my-5">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-800 my-5 leading-tight">
             Hi, I'm <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Tegar Mupagiwa Afrian</span>
             <br />
             Fullstack Developer
           </h1>
-          <p className="text-gray-600 mb-5">
+          <p className="text-gray-600 mb-5 text-sm sm:text-base">
             Halo! Aku Tegar Mupagiwa Afrian, seorang mahasiswa Informatika yang suka banget dengan dunia teknologi. Aku fokus di Web Development, sama Machine Learning. Yuk jelajahi portofolio ini untuk lihat skill dan project aku!
           </p>
 
-          <div className="flex gap-3 mb-5 flex-wrap">
+          <div className="flex gap-3 mb-5 flex-wrap justify-center lg:justify-start">
             <Link to="/projects" className="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white px-5 py-2.5 rounded-lg font-bold hover:shadow-lg hover:from-purple-500 hover:to-pink-500 transition">
               View My Work →
             </Link>
@@ -63,7 +63,7 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="flex gap-4 text-2xl">
+          <div className="flex gap-4 text-2xl justify-center lg:justify-start">
             <a href="https://github.com/tmagamingpro" target="_blank" rel="noreferrer" className="text-gray-700 hover:text-purple-600 transition">
               <i className="fab fa-github"></i>
             </a>
@@ -77,18 +77,18 @@ export default function Home() {
         </div>
 
         <div className="text-center">
-          <img src="/img/WhatsApp Image 2025-12-19 at 19.15.01_e3775ca0.jpg" alt="Foto Tegar" className="w-64 h-64 rounded-full border-4 border-purple-400 object-cover shadow-lg" />
+          <img src="/img/WhatsApp Image 2025-12-19 at 19.15.01_e3775ca0.jpg" alt="Foto Tegar" className="w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border-4 border-purple-400 object-cover shadow-lg mx-auto" />
         </div>
       </section>
 
       {/* Skills Preview */}
-      <section className="px-[8%] py-20 bg-white">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills</h2>
-        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills</h2>
+        <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Technologies I mostly work with
         </p>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
           <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl hover:shadow-lg hover:-translate-y-1.5 transition border-l-4 border-purple-400">
             <h4 className="font-bold mb-3 text-purple-700">Frontend</h4>
             <div className="flex flex-wrap gap-2">
@@ -129,9 +129,9 @@ export default function Home() {
       </section>
 
       {/* Projects Preview */}
-      <section className="px-[8%] py-20 bg-white">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Projects</h2>
-        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Projects</h2>
+        <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Works I've built
         </p>
 
@@ -141,7 +141,7 @@ export default function Home() {
           </div>
         ) : projects.length > 0 ? (
           <>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-7 mb-8 max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 mb-8 max-w-6xl mx-auto">
               {projects.slice(0, 3).map(project => (
                 <ProjectCard
                   key={project.id}
@@ -162,9 +162,9 @@ export default function Home() {
       </section>
 
       {/* Experience */}
-      <section className="px-[8%] py-20 bg-white">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Experience</h2>
-        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Experience</h2>
+        <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Organization & activities
         </p>
 

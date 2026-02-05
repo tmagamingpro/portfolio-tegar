@@ -180,23 +180,23 @@ export default function Skills() {
 
   return (
     <main className="bg-white min-h-screen">
-      <section className="px-[8%] py-20">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills & Expertise</h2>
-        <p className="text-center text-gray-600 mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills & Expertise</h2>
+        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Teknologi dan keahlian yang saya kuasai
         </p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 max-w-5xl mx-auto">
           {skillCategories.map((cat, idx) => (
-            <div key={idx} className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 hover:border-pink-400">
-              <h3 className="text-2xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{cat.category}</h3>
+            <div key={idx} className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 hover:border-pink-400">
+              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{cat.category}</h3>
               
               <div className="space-y-5">
                 {cat.skills.map((skill, sidx) => (
                   <div key={sidx}>
                     <div className="flex justify-between mb-1.5">
-                      <span className="font-semibold text-gray-800">{skill.name}</span>
-                      <span className="text-sm font-semibold text-purple-600">{skill.level}%</span>
+                      <span className="font-semibold text-gray-800 text-sm sm:text-base">{skill.name}</span>
+                      <span className="text-xs sm:text-sm font-semibold text-purple-600">{skill.level}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div
@@ -212,20 +212,20 @@ export default function Skills() {
         </div>
 
         {/* Additional Info - Integrated with Admin Dashboard */}
-        <div className="max-w-4xl mx-auto mt-16 grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
-            <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">{projectsCount}+</div>
-            <p className="text-gray-700 font-semibold">Projects Completed</p>
+        <div className="max-w-4xl mx-auto mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">{projectsCount}+</div>
+            <p className="text-gray-700 font-semibold text-sm sm:text-base">Projects Completed</p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400 text-center">
-            <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">2+</div>
-            <p className="text-gray-700 font-semibold">Years Experience</p>
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400 text-center">
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">2+</div>
+            <p className="text-gray-700 font-semibold text-sm sm:text-base">Years Experience</p>
           </div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
-            <div className="text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">100%</div>
-            <p className="text-gray-700 font-semibold">Dedication</p>
+          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">100%</div>
+            <p className="text-gray-700 font-semibold text-sm sm:text-base">Dedication</p>
           </div>
         </div>
       </section>

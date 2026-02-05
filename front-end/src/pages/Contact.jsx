@@ -35,83 +35,83 @@ export default function Contact() {
 
   return (
     <main className="bg-white min-h-screen">
-      <section className="px-[8%] py-20">
-        <h2 className="text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Contact Me</h2>
-        <p className="text-center text-gray-600 mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400">
+      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
+        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Contact Me</h2>
+        <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Hubungi saya untuk diskusi atau project collaboration
         </p>
 
         <div className="max-w-2xl mx-auto">
           {/* Contact Info */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400">
-              <h4 className="font-bold text-lg mb-2 flex items-center gap-2 text-purple-700">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 sm:mb-10">
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400">
+              <h4 className="font-bold text-base sm:text-lg mb-2 flex items-center gap-2 text-purple-700">
                 <i className="fas fa-envelope"></i> Email
               </h4>
-              <a href="mailto:tegarafrian2006@email.com" className="text-purple-600 hover:text-pink-600 hover:underline font-semibold transition">
+              <a href="mailto:tegarafrian2006@email.com" className="text-purple-600 hover:text-pink-600 hover:underline font-semibold transition text-sm sm:text-base break-all">
                 tegarafrian2006@email.com
               </a>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400">
-              <h4 className="font-bold text-lg mb-2 flex items-center gap-2 text-pink-700">
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400">
+              <h4 className="font-bold text-base sm:text-lg mb-2 flex items-center gap-2 text-pink-700">
                 <i className="fas fa-location-dot"></i> Location
               </h4>
-              <p className="text-gray-600">Indonesia</p>
+              <p className="text-gray-600 text-sm sm:text-base">Indonesia</p>
             </div>
           </div>
 
           {/* Contact Form */}
-          <div className="bg-white p-8 rounded-xl shadow-lg border-2 border-purple-200">
+          <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border-2 border-purple-200">
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
-                <label className="block font-semibold mb-2 text-gray-800">Nama</label>
+                <label className="block font-semibold mb-2 text-gray-800 text-sm sm:text-base">Nama</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   placeholder="Nama kamu"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold mb-2 text-gray-800">Email</label>
+                <label className="block font-semibold mb-2 text-gray-800 text-sm sm:text-base">Email</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   placeholder="Email kamu"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold mb-2 text-gray-800">Subject</label>
+                <label className="block font-semibold mb-2 text-gray-800 text-sm sm:text-base">Subject</label>
                 <input
                   type="text"
                   name="subject"
                   value={formData.subject}
                   onChange={handleChange}
                   required
-                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
+                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition"
                   placeholder="Subjek pesan"
                 />
               </div>
 
               <div>
-                <label className="block font-semibold mb-2 text-gray-800">Pesan</label>
+                <label className="block font-semibold mb-2 text-gray-800 text-sm sm:text-base">Pesan</label>
                 <textarea
                   name="message"
                   value={formData.message}
                   onChange={handleChange}
                   required
                   rows="5"
-                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition"
+                  className="w-full border-2 border-purple-300 rounded-lg px-4 py-2.5 text-sm sm:text-base focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent resize-none transition"
                   placeholder="Tulis pesan kamu di sini..."
                 ></textarea>
               </div>
