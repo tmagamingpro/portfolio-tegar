@@ -9,6 +9,9 @@ console.log('Starting backend server...');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || '*';
+const allowedOrigins = CLIENT_ORIGIN.split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean);
 
 app.get("/", (req, res) => {
   res.send("Backend is alive! 👋");
@@ -16,9 +19,20 @@ app.get("/", (req, res) => {
 
 // Configure CORS to allow requests from the frontend origin (set CLIENT_ORIGIN in production)
 app.get('/favicon.ico', (req, res) => res.status(204).end());
-app.get('favicon.png', (req, res) => res.status(204).end());
+app.get('/favicon.png', (req, res) => res.status(204).end());
 
-app.use(cors({ origin: allowedOrigins }));
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.length === 0 || allowedOrigins.includes('*')) {
+        return callback(null, true);
+      }
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      return callback(new Error('Not allowed by CORS'));
+    }
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

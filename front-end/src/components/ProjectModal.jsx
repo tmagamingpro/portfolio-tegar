@@ -5,7 +5,7 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
   if (!isOpen || !project) return null;
 
-  const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app';
+  const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-backend.vercel.app';
 
   const getImageUrl = (imageField) => {
     if (!imageField) return null;
@@ -14,6 +14,25 @@ export default function ProjectModal({ project, isOpen, onClose }) {
   };
 
   const imageUrl = getImageUrl(project.image);
+  const technologies = (() => {
+    if (Array.isArray(project.technologies)) return project.technologies;
+    if (Array.isArray(project.tech)) return project.tech;
+    if (typeof project.technologies === 'string') {
+      try {
+        return JSON.parse(project.technologies);
+      } catch {
+        return [project.technologies];
+      }
+    }
+    if (typeof project.tech === 'string') {
+      try {
+        return JSON.parse(project.tech);
+      } catch {
+        return [project.tech];
+      }
+    }
+    return [];
+  })();
 
   const handleImageError = (e) => {
     setImageFailed(true);
@@ -64,11 +83,11 @@ export default function ProjectModal({ project, isOpen, onClose }) {
           )}
 
           {/* Technologies */}
-          {project.technologies && project.technologies.length > 0 && (
+          {technologies.length > 0 && (
             <div className="mb-6">
               <h3 className="font-semibold text-gray-800 mb-3">Technologies:</h3>
               <div className="flex flex-wrap gap-2">
-                {project.technologies.map((tech, idx) => (
+                {technologies.map((tech, idx) => (
                   <span
                     key={idx}
                     className="inline-block bg-gradient-to-r from-pink-100 to-blue-100 text-gray-700 px-4 py-2 rounded-full text-sm font-semibold border border-pink-200"
@@ -82,9 +101,9 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
           {/* Actions */}
           <div className="flex gap-4">
-            {project.githubLink && (
+            {(project.githubLink || project.github_link) && (
               <a
-                href={project.githubLink}
+                href={project.githubLink || project.github_link}
                 target="_blank"
                 rel="noreferrer"
                 className="flex-1 bg-gradient-to-r from-pink-400 to-blue-400 text-white px-6 py-3 rounded-lg font-bold hover:shadow-lg transition text-center"

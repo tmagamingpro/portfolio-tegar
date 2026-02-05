@@ -3,7 +3,7 @@ import { useState } from 'react';
 export default function ProjectCard({ project, onProjectClick }) {
   const [imageFailed, setImageFailed] = useState(false);
 
-  const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-production-bed1.up.railway.app';
+  const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-backend.vercel.app';
 
   const getImageUrl = (imageField) => {
     if (!imageField) return null;
@@ -12,6 +12,25 @@ export default function ProjectCard({ project, onProjectClick }) {
   };
 
   const imageUrl = getImageUrl(project.image);
+  const technologies = (() => {
+    if (Array.isArray(project.technologies)) return project.technologies;
+    if (Array.isArray(project.tech)) return project.tech;
+    if (typeof project.technologies === 'string') {
+      try {
+        return JSON.parse(project.technologies);
+      } catch {
+        return [project.technologies];
+      }
+    }
+    if (typeof project.tech === 'string') {
+      try {
+        return JSON.parse(project.tech);
+      } catch {
+        return [project.tech];
+      }
+    }
+    return [];
+  })();
 
   const handleImageError = (e) => {
     if (!imageFailed) {
@@ -54,9 +73,9 @@ export default function ProjectCard({ project, onProjectClick }) {
           </p>
         )}
 
-        {project.technologies && project.technologies.length > 0 && (
+        {technologies.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-3">
-            {project.technologies.map((tech, idx) => (
+            {technologies.map((tech, idx) => (
               <span
                 key={idx}
                 className="inline-block bg-gray-100 text-gray-700 px-2.5 py-1 rounded text-xs font-semibold"

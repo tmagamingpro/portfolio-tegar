@@ -12,7 +12,7 @@ export default function ProjectsPage() {
   const [editingProject, setEditingProject] = useState(null);
   const [toastMsg, setToastMsg] = useState("");
 
-  const API_URL = "https://portfolio-tegar-production-bed1.up.railway.app";
+  const API_URL = import.meta.env.VITE_API_URL || "https://portfolio-tegar-backend.vercel.app";
 
   const handleAdd = async (data, file) => {
     const formData = new FormData();
