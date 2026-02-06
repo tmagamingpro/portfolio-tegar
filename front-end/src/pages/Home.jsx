@@ -9,7 +9,6 @@ export default function Home() {
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
-  const adminUrl = import.meta.env.VITE_ADMIN_URL || 'https://admin-dashboard.vercel.app';
 
   useEffect(() => {
     getProjects()
