@@ -1,6 +1,12 @@
 // src/api/projects.js
-const API_BASE = import.meta.env.VITE_API_URL || 'https://portfolio-tegar-backend.vercel.app';
-const BASE_URL = `${API_BASE}/api/projects`;
+const API_BASE = (import.meta.env.VITE_API_URL || '').trim();
+if (!API_BASE) {
+  throw new Error('VITE_API_URL is not set');
+}
+if (!/^https?:\/\//i.test(API_BASE)) {
+  throw new Error('VITE_API_URL must be an absolute URL');
+}
+const BASE_URL = `${API_BASE.replace(/\/+$/, '')}/api/projects`;
 
 // READ
 export const getAllProjects = async () => {

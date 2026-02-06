@@ -5,6 +5,16 @@ export default function Skills() {
   const [skillCategories, setSkillCategories] = useState([]);
   const [projectsCount, setProjectsCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const experienceStart = new Date(2024, 7, 1);
+  const now = new Date();
+  const experienceYears = (() => {
+    let years = now.getFullYear() - experienceStart.getFullYear();
+    const beforeAnniversary =
+      now.getMonth() < experienceStart.getMonth() ||
+      (now.getMonth() === experienceStart.getMonth() && now.getDate() < experienceStart.getDate());
+    if (beforeAnniversary) years -= 1;
+    return Math.max(0, years);
+  })();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,7 +91,6 @@ export default function Skills() {
               { name: 'JavaScript', level: getPercentage(['JavaScript', 'javascript', 'js', 'JS']) },
               { name: 'React', level: getPercentage(['React', 'react', 'ReactJS', 'reactjs']) },
               { name: 'Tailwind CSS', level: getPercentage(['Tailwind CSS', 'tailwind css', 'TailwindCSS', 'tailwindcss', 'Tailwind', 'tailwind']) },
-              { name: 'Responsive Design', level: 88 }
             ]
           },
           {
@@ -109,7 +118,8 @@ export default function Skills() {
               { name: 'Problem Solving', level: 87 },
               { name: 'UI/UX Design', level: 80 },
               { name: 'Project Management', level: 33 },
-              { name: 'Communication', level: 50 }
+              { name: 'Communication', level: 50 },
+              { name: 'Responsive Design', level: 88 }
             ]
           }
         ];
@@ -219,7 +229,7 @@ export default function Skills() {
           </div>
 
           <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400 text-center">
-            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">2+</div>
+            <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">{experienceYears}+</div>
             <p className="text-gray-700 font-semibold text-sm sm:text-base">Years Experience</p>
           </div>
 

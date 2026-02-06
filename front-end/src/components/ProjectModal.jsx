@@ -7,10 +7,13 @@ export default function ProjectModal({ project, isOpen, onClose }) {
 
   const resolveApiBase = () => {
     const raw = (import.meta.env.VITE_API_URL || '').trim();
-    const runtimeOrigin = typeof window !== 'undefined' ? window.location.origin : '';
-    if (!raw || raw === runtimeOrigin) return 'https://portfolio-tegar-backend.vercel.app';
-    if (!raw.startsWith('http')) return 'https://portfolio-tegar-backend.vercel.app';
-    return raw;
+    if (!raw) {
+      throw new Error('VITE_API_URL is not set');
+    }
+    if (!/^https?:\/\//i.test(raw)) {
+      throw new Error('VITE_API_URL must be an absolute URL');
+    }
+    return raw.replace(/\/+$/, '');
   };
   const API_BASE = resolveApiBase();
 

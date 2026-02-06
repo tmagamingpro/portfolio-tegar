@@ -12,7 +12,17 @@ export default function ProjectsPage() {
   const [editingProject, setEditingProject] = useState(null);
   const [toastMsg, setToastMsg] = useState("");
 
-  const API_URL = import.meta.env.VITE_API_URL || "https://portfolio-tegar-backend.vercel.app";
+  const resolveApiBase = () => {
+    const raw = (import.meta.env.VITE_API_URL || '').trim();
+    if (!raw) {
+      throw new Error('VITE_API_URL is not set');
+    }
+    if (!/^https?:\/\//i.test(raw)) {
+      throw new Error('VITE_API_URL must be an absolute URL');
+    }
+    return raw.replace(/\/+$/, '');
+  };
+  const API_URL = resolveApiBase();
 
   const handleAdd = async (data, file) => {
     const formData = new FormData();
