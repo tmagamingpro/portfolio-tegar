@@ -60,9 +60,16 @@ export default function Projects() {
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
-            <div className="text-center">
-              <div className="w-12 h-12 border-4 border-purple-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-              <p className="text-gray-600">Loading projects...</p>
+            <div className="text-center bg-gradient-to-br from-purple-50 to-pink-50 border border-purple-100 rounded-2xl px-6 py-5 shadow-sm">
+              <div className="w-8 h-8 border-2 border-purple-300 border-t-transparent rounded-full animate-spin mx-auto mb-3"></div>
+              <p className="text-gray-600 text-sm font-semibold">
+                Loading projects
+                <span className="inline-flex items-center gap-1 ml-2 align-middle">
+                  <span className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></span>
+                  <span className="w-2 h-2 bg-purple-400 rounded-full animate-bounce" style={{ animationDelay: '120ms' }}></span>
+                  <span className="w-2 h-2 bg-pink-400 rounded-full animate-bounce" style={{ animationDelay: '240ms' }}></span>
+                </span>
+              </p>
             </div>
           </div>
         ) : error ? (
