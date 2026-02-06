@@ -9,6 +9,7 @@ const __dirname = path.dirname(__filename);
 const dataRoot = process.env.VERCEL ? '/tmp' : path.join(__dirname, '..');
 const projectsFilePath = path.join(dataRoot, 'data', 'projects.json');
 const bundledProjectsPath = path.join(__dirname, '..', 'data', 'projects.json');
+const SUPABASE_BUCKET = process.env.SUPABASE_BUCKET || 'project-images';
 const ensureProjectsFile = () => {
   const dir = path.dirname(projectsFilePath);
   if (!fs.existsSync(dir)) {
@@ -44,6 +45,25 @@ const writeProjects = async (projects) => {
   }
   ensureProjectsFile();
   fs.writeFileSync(projectsFilePath, JSON.stringify(projects, null, 2));
+};
+
+const uploadImageToSupabase = async (file) => {
+  if (!file) return '';
+  if (!supabaseEnabled) return '';
+  const fileBuffer = fs.readFileSync(file.path);
+  const safeName = file.originalname ? file.originalname.replace(/\s+/g, '-') : 'upload';
+  const storagePath = `${Date.now()}-${safeName}`;
+
+  const { error: uploadError } = await supabase.storage
+    .from(SUPABASE_BUCKET)
+    .upload(storagePath, fileBuffer, {
+      contentType: file.mimetype || 'application/octet-stream',
+      upsert: false
+    });
+  if (uploadError) throw uploadError;
+
+  const { data } = supabase.storage.from(SUPABASE_BUCKET).getPublicUrl(storagePath);
+  return data?.publicUrl || '';
 };
 
 // READ
@@ -85,11 +105,12 @@ export const create = async (req, res) => {
     // support both stringified tech and array
     const techField = typeof req.body.tech === 'string' ? req.body.tech : JSON.stringify(req.body.tech || "[]");
 
+    const imageUrl = supabaseEnabled ? await uploadImageToSupabase(req.file) : (req.file ? `/uploads/${req.file.filename}` : '');
     const newProject = {
       id: `proj-${Date.now()}`,
       title: req.body.title || '',
       description: req.body.description || '',
-      image: req.file ? `/uploads/${req.file.filename}` : '',
+      image: imageUrl,
       tech: JSON.parse(techField || "[]"),
       github_link: req.body.githubLink || '',
       created_at: new Date().toISOString()
@@ -132,10 +153,11 @@ export const update = async (req, res) => {
         }
       }
 
+      const imageUrl = req.file ? await uploadImageToSupabase(req.file) : updatedFields.image;
       const dbFields = {
         title: updatedFields.title,
         description: updatedFields.description,
-        image: req.file ? `/uploads/${req.file.filename}` : updatedFields.image,
+        image: imageUrl,
         tech: updatedFields.tech,
         github_link: updatedFields.githubLink
       };
