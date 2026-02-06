@@ -55,11 +55,11 @@ export default function Home() {
             <Link to="/projects" className="inline-block bg-gradient-to-r from-purple-400 to-pink-400 text-white px-5 py-2.5 rounded-lg font-bold hover:shadow-lg hover:from-purple-500 hover:to-pink-500 transition">
               View My Work →
             </Link>
-            <a href="mailto:tegarafrian2006@email.com" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
+            <Link to="/contact" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
               Contact Me
-            </a>
-            <a href={adminUrl} target="_blank" rel="noreferrer" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
-              Admin Panel
+            </Link>
+            <a href="/public/img/CV_GDG_Tegar.pdf" target="_blank" rel="noreferrer" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
+              MY CV
             </a>
           </div>
 
@@ -77,7 +77,7 @@ export default function Home() {
         </div>
 
         <div className="text-center">
-          <img src="/img/WhatsApp Image 2025-12-19 at 19.15.01_e3775ca0.jpg" alt="Foto Tegar" className="w-44 h-44 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-full border-4 border-purple-400 object-cover shadow-lg mx-auto" />
+          <img src="/img/WhatsApp Image 2025-12-19 at 19.15.01_e3775ca0.jpg" alt="Foto Tegar" className="w-44 h-44 sm:w-65 sm:h-65 lg:w-64 lg:h-64 rounded-full border-4 border-purple-400 object-cover shadow-lg mx-auto" />
         </div>
       </section>
 
