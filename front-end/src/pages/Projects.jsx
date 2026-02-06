@@ -55,7 +55,7 @@ export default function Projects() {
           My Projects
         </h2>
         <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
-          Portfolio of works I've created & contributed to
+          Beberapa projek pribadi dan grup untuk portofolio yang sudah saya kerjakan 
         </p>
 
         {loading ? (

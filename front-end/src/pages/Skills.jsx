@@ -90,7 +90,7 @@ export default function Skills() {
               { name: 'CSS', level: getPercentage(['CSS', 'Css', 'css']) },
               { name: 'JavaScript', level: getPercentage(['JavaScript', 'javascript', 'js', 'JS']) },
               { name: 'React', level: getPercentage(['React', 'react', 'ReactJS', 'reactjs']) },
-              { name: 'Tailwind CSS', level: getPercentage(['Tailwind CSS', 'tailwind css', 'TailwindCSS', 'tailwindcss', 'Tailwind', 'tailwind']) },
+              { name: 'Tailwind CSS', level: getPercentage(['Tailwind CSS', 'tailwind css', 'TailwindCSS', 'tailwindcss', 'Tailwind', 'tailwind']) }
             ]
           },
           {
@@ -98,6 +98,7 @@ export default function Skills() {
             skills: [
               { name: 'Node.js', level: getPercentage(['Node.js', 'node.js', 'NodeJS', 'nodejs', 'Node', 'node']) },
               { name: 'Express.js', level: getPercentage(['Express.js', 'express.js', 'ExpressJS', 'expressjs', 'Express', 'express']) },
+              { name: 'SupaBase', level: getPercentage(['SupaBase', 'supabase', 'Supabase']) },
               { name: 'REST API', level: 85 },
               { name: 'Database Design', level: 75 }
             ]
@@ -136,8 +137,7 @@ export default function Skills() {
               { name: 'CSS', level: 0 },
               { name: 'JavaScript', level: 0 },
               { name: 'React', level: 0 },
-              { name: 'Tailwind CSS', level: 0 },
-              { name: 'Responsive Design', level: 88 }
+              { name: 'Tailwind CSS', level: 0 }
             ]
           },
           {
@@ -165,7 +165,8 @@ export default function Skills() {
               { name: 'Problem Solving', level: 87 },
               { name: 'UI/UX Design', level: 80 },
               { name: 'Project Management', level: 78 },
-              { name: 'Communication', level: 85 }
+              { name: 'Communication', level: 85 },
+              { name: 'Responsive Design', level: 88 }
             ]
           }
         ]);
@@ -204,16 +205,23 @@ export default function Skills() {
               <div className="space-y-5">
                 {cat.skills.map((skill, sidx) => (
                   <div key={sidx}>
+                    {(() => {
+                      const safeLevel = Math.max(0, Math.min(100, Number(skill.level) || 0));
+                      return (
+                        <>
                     <div className="flex justify-between mb-1.5">
                       <span className="font-semibold text-gray-800 text-sm sm:text-base">{skill.name}</span>
-                      <span className="text-xs sm:text-sm font-semibold text-purple-600">{skill.level}%</span>
+                      <span className="text-xs sm:text-sm font-semibold text-purple-600">{safeLevel}%</span>
                     </div>
                     <div className="w-full bg-gray-200 rounded-full h-2.5">
                       <div
                         className="bg-gradient-to-r from-purple-400 to-pink-400 h-2.5 rounded-full transition-all duration-500 shadow-sm"
-                        style={{ width: `${skill.level}%` }}
+                        style={{ width: `${safeLevel}%` }}
                       ></div>
                     </div>
+                        </>
+                      );
+                    })()}
                   </div>
                 ))}
               </div>

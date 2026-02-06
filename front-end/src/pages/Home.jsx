@@ -84,7 +84,7 @@ export default function Home() {
       <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills</h2>
         <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
-          Technologies I mostly work with
+          Teknologi yang saya kuasai
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-8 max-w-4xl mx-auto">
@@ -131,7 +131,7 @@ export default function Home() {
       <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Projects</h2>
         <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
-          Works I've built
+          Beberapa projek yang sudah saya kerjakan
         </p>
 
         {loading ? (
@@ -164,7 +164,7 @@ export default function Home() {
       <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
         <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Experience</h2>
         <p className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
-          Organization & activities
+          Organisasi dan posisi yang pernah saya jalani
         </p>
 
         <div className="max-w-2xl mx-auto space-y-6">
