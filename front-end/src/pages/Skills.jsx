@@ -1,10 +1,22 @@
 import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { getProjects } from '../services/projects';
 
 export default function Skills() {
   const [skillCategories, setSkillCategories] = useState([]);
   const [projectsCount, setProjectsCount] = useState(0);
   const [loading, setLoading] = useState(true);
+  const fadeUp = {
+    hidden: { opacity: 0, y: 12 },
+    show: { opacity: 1, y: 0 }
+  };
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 }
+  };
+  const stagger = {
+    show: { transition: { staggerChildren: 0.08 } }
+  };
   const experienceStart = new Date(2024, 7, 1);
   const now = new Date();
   const experienceYears = (() => {
@@ -191,20 +203,26 @@ export default function Skills() {
 
   return (
     <main className="bg-white min-h-screen">
-      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills & Expertise</h2>
-        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
+      <motion.section
+        className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20"
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Skills & Expertise</motion.h2>
+        <motion.p variants={fadeUp} className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Teknologi dan keahlian yang saya kuasai
-        </p>
+        </motion.p>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 max-w-5xl mx-auto">
+        <motion.div variants={stagger} className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-10 max-w-5xl mx-auto">
           {skillCategories.map((cat, idx) => (
-            <div key={idx} className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 hover:border-pink-400">
-              <h3 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{cat.category}</h3>
+            <motion.div key={idx} variants={fadeUp} className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 hover:border-pink-400">
+              <motion.h3 variants={fadeIn} className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">{cat.category}</motion.h3>
               
-              <div className="space-y-5">
+              <motion.div variants={stagger} className="space-y-5">
                 {cat.skills.map((skill, sidx) => (
-                  <div key={sidx}>
+                  <motion.div key={sidx} variants={fadeUp}>
                     {(() => {
                       const safeLevel = Math.max(0, Math.min(100, Number(skill.level) || 0));
                       return (
@@ -222,31 +240,31 @@ export default function Skills() {
                         </>
                       );
                     })()}
-                  </div>
+                  </motion.div>
                 ))}
-              </div>
-            </div>
+              </motion.div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Additional Info - Integrated with Admin Dashboard */}
-        <div className="max-w-4xl mx-auto mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
+        <motion.div variants={stagger} className="max-w-4xl mx-auto mt-12 sm:mt-16 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <motion.div variants={fadeUp} className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
             <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">{projectsCount}+</div>
             <p className="text-gray-700 font-semibold text-sm sm:text-base">Projects Completed</p>
-          </div>
+          </motion.div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400 text-center">
+          <motion.div variants={fadeUp} className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-pink-400 text-center">
             <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">{experienceYears}+</div>
             <p className="text-gray-700 font-semibold text-sm sm:text-base">Years Experience</p>
-          </div>
+          </motion.div>
 
-          <div className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
+          <motion.div variants={fadeUp} className="bg-gradient-to-br from-purple-50 to-pink-50 p-5 sm:p-6 rounded-xl shadow hover:shadow-lg transition border-l-4 border-purple-400 text-center">
             <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-2">100%</div>
             <p className="text-gray-700 font-semibold text-sm sm:text-base">Dedication</p>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
     </main>
   );
 }

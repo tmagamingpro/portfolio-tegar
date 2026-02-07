@@ -1,7 +1,19 @@
 import { useState } from 'react';
+import { motion } from 'framer-motion';
 
 export default function About() {
   const [showWaifuModal, setShowWaifuModal] = useState(false);
+  const fadeUp = {
+    hidden: { opacity: 0, y: 12 },
+    show: { opacity: 1, y: 0 }
+  };
+  const fadeIn = {
+    hidden: { opacity: 0 },
+    show: { opacity: 1 }
+  };
+  const stagger = {
+    show: { transition: { staggerChildren: 0.08 } }
+  };
 
   const timeline = [
     { year: '2024', title: 'Mulai Belajar Java dasar', desc: 'Memulai journey di dunia programming' },
@@ -55,14 +67,20 @@ export default function About() {
   return (
     <main className="bg-white min-h-screen">
       {/* Timeline */}
-      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <motion.section
+        className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20"
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Perjalanan Saya
-        </h2>
+        </motion.h2>
         
-        <div className="max-w-2xl mx-auto">
+        <motion.div variants={stagger} className="max-w-2xl mx-auto">
           {timeline.map((item, idx) => (
-            <div key={idx} className="flex gap-4 sm:gap-6 mb-8 relative">
+            <motion.div key={idx} variants={fadeUp} className="flex gap-4 sm:gap-6 mb-8 relative">
               <div className="flex flex-col items-center">
                 <div className="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full"></div>
                 {idx !== timeline.length - 1 && (
@@ -74,45 +92,59 @@ export default function About() {
                 <h4 className="text-base sm:text-lg font-bold text-gray-800">{item.title}</h4>
                 <p className="text-gray-600 text-sm sm:text-base">{item.desc}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* About Cards */}
-      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <motion.section
+        className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white"
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Tentang Saya
-        </h2>
-        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
+        </motion.h2>
+        <motion.p variants={fadeUp} className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Kenali lebih jauh siapa aku dan apa yang bisa aku kontribusikan
-        </p>
+        </motion.p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
+        <motion.div variants={stagger} className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-4xl mx-auto">
           {aboutCards.map((card, idx) => (
-            <div
+            <motion.div
               key={idx}
+              variants={fadeUp}
               className="bg-white p-6 rounded-xl hover:shadow-lg hover:-translate-y-1 transition border-l-4 border-purple-400 hover:border-pink-400 shadow-md"
             >
               <div className="text-3xl sm:text-4xl mb-3">{card.icon}</div>
               <h3 className="font-bold text-base sm:text-lg mb-2 text-gray-800">{card.title}</h3>
               <p className="text-gray-600 text-sm sm:text-base">{card.desc}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
-      </section>
+        </motion.div>
+      </motion.section>
 
       {/* My Waifu Card */}
-      <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      <motion.section
+        className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white"
+        variants={stagger}
+        initial="hidden"
+        whileInView="show"
+        viewport={{ once: true, amount: 0.2 }}
+      >
+        <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Special Someone
-        </h2>
-        <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
+        </motion.h2>
+        <motion.p variants={fadeUp} className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Orang istimewa dalam hidup saya
-        </p>
+        </motion.p>
 
-        <div className="max-w-md mx-auto">
-          <div
+        <motion.div variants={fadeUp} className="max-w-md mx-auto">
+          <motion.div
+            variants={fadeIn}
             className="bg-white rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition cursor-pointer group border-2 border-purple-200 hover:border-pink-400"
             onClick={() => setShowWaifuModal(true)}
           >
@@ -142,14 +174,26 @@ export default function About() {
                 Click untuk lihat lebih →
               </p>
             </div>
-          </div>
-        </div>
-      </section>
+          </motion.div>
+        </motion.div>
+      </motion.section>
 
       {/* Waifu Modal */}
       {showWaifuModal && (
-        <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+        <motion.div
+          className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+          initial="hidden"
+          animate="show"
+          exit="hidden"
+          variants={fadeIn}
+        >
+          <motion.div
+            className="bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 16 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
+          >
             {/* Close Button */}
             <button
               onClick={() => setShowWaifuModal(false)}
@@ -196,8 +240,8 @@ export default function About() {
                 </button>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       )}
     </main>
   );
