@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -32,6 +32,44 @@ function AdminRedirect() {
   );
 }
 
+function AnimatedRoutes() {
+  const location = useLocation();
+  const [displayLocation, setDisplayLocation] = useState(location);
+  const [transitionStage, setTransitionStage] = useState("fadeIn");
+
+  useEffect(() => {
+    if (location.pathname !== displayLocation.pathname) {
+      setTransitionStage("fadeOut");
+    }
+  }, [location, displayLocation]);
+
+  const handleAnimationEnd = () => {
+    if (transitionStage === "fadeOut") {
+      setDisplayLocation(location);
+      setTransitionStage("fadeIn");
+    }
+  };
+
+  return (
+    <div
+      className={`page-transition ${transitionStage}`}
+      onAnimationEnd={handleAnimationEnd}
+    >
+      <Routes location={displayLocation}>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/skills" element={<Skills />} />
+        <Route path="/projects" element={<Projects />} />
+        <Route path="/contact" element={<Contact />} />
+
+        {/* Admin Redirect Routes */}
+        <Route path="/admin" element={<AdminRedirect />} />
+        <Route path="/admin/*" element={<AdminRedirect />} />
+      </Routes>
+    </div>
+  );
+}
+
 export default function App() {
   const [loading, setLoading] = useState(true);
 
@@ -48,17 +86,7 @@ export default function App() {
           <Navbar />
           <main className="flex-grow">
             <div className="pt-16">
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/skills" element={<Skills />} />
-                <Route path="/projects" element={<Projects />} />
-                <Route path="/contact" element={<Contact />} />
-
-                {/* Admin Redirect Routes */}
-                <Route path="/admin" element={<AdminRedirect />} />
-                <Route path="/admin/*" element={<AdminRedirect />} />
-              </Routes>
+              <AnimatedRoutes />
             </div>
           </main>
           <Footer />
