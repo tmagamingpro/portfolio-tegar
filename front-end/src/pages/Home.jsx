@@ -5,6 +5,7 @@ import ProjectCard from '../components/ProjectCard';
 import ProjectModal from '../components/ProjectModal';
 
 export default function Home() {
+  const cvUrl = import.meta.env.VITE_CV_URL;
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState(null);
@@ -57,7 +58,7 @@ export default function Home() {
             <Link to="/contact" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
               Contact Me
             </Link>
-            <a href="/public/img/CV_GDG_Tegar.pdf" target="_blank" rel="noreferrer" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
+            <a href={cvUrl || "/public/img/CV_GDG_Tegar.pdf"} target="_blank" rel="noreferrer" className="inline-block border-2 border-purple-400 text-purple-600 px-5 py-2.5 rounded-lg font-bold hover:bg-gradient-to-r hover:from-purple-400 hover:to-pink-400 hover:text-white hover:border-transparent transition">
               MY CV
             </a>
           </div>
