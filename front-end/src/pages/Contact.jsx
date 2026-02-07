@@ -51,8 +51,7 @@ export default function Contact() {
         className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20"
         variants={stagger}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
       >
         <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">Contact Me</motion.h2>
         <motion.p variants={fadeUp} className="text-center text-gray-600 mb-8 sm:mb-10 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">

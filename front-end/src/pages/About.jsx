@@ -71,8 +71,7 @@ export default function About() {
         className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20"
         variants={stagger}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
       >
         <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-8 sm:mb-10 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Perjalanan Saya
@@ -102,8 +101,7 @@ export default function About() {
         className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white"
         variants={stagger}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
       >
         <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Tentang Saya
@@ -132,8 +130,7 @@ export default function About() {
         className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20 bg-white"
         variants={stagger}
         initial="hidden"
-        whileInView="show"
-        viewport={{ once: true, amount: 0.2 }}
+        animate="show"
       >
         <motion.h2 variants={fadeUp} className="text-3xl sm:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
           Special Someone
