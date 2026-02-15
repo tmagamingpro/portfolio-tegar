@@ -51,7 +51,7 @@ export default function Modal({ isOpen, onClose, onSubmit, project }) {
         <div className="flex justify-between items-center mb-4">
           <h3 className="text-xl font-bold text-gray-800">
             {project ? "Edit Project " : "Add Project "}
-          </h3>
+          </h3> 
           <button
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 text-xl"
