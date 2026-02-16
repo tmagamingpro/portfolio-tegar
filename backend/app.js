@@ -3,6 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import contactsRoutes from './routes/contactRoutes.js';
 import projectsRoutes from './routes/projectRoutes.js';
+import authRoutes from './routes/authRoutes.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -52,6 +53,7 @@ if (process.env.VERCEL) {
 
 app.use('/api/contacts', contactsRoutes);
 app.use('/api/projects', projectsRoutes);
+app.use('/api/auth', authRoutes);
 
 //error handling middleware
 app.use((err, req, res, next) => {

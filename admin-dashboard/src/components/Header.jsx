@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export default function Header({ setIsLoggedIn, setPage }) {
+export default function Header({ setIsLoggedIn, tokenKey }) {
   const navigate = useNavigate();
 
   return (
@@ -12,6 +12,7 @@ export default function Header({ setIsLoggedIn, setPage }) {
       </div>
       <button
         onClick={() => {
+          localStorage.removeItem(tokenKey);
           setIsLoggedIn(false);
           navigate("/login");
         }}
