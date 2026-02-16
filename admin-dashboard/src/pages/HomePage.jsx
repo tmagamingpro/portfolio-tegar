@@ -73,9 +73,18 @@ export default function HomePage() {
     { name: "-", count: 0 }
   );
 
-  const latestProject = projects[projects.length - 1];
-  const recentProjects = [...projects].slice(-5).reverse();
-  const recentContacts = [...contacts].slice(-5).reverse();
+  const getTimestamp = (item) => {
+    const ts = item?.created_at || item?.createdAt;
+    const time = ts ? new Date(ts).getTime() : 0;
+    return Number.isNaN(time) ? 0 : time;
+  };
+
+  const sortedProjects = [...projects].sort((a, b) => getTimestamp(b) - getTimestamp(a));
+  const sortedContacts = [...contacts].sort((a, b) => getTimestamp(b) - getTimestamp(a));
+
+  const latestProject = sortedProjects[0];
+  const recentProjects = sortedProjects.slice(0, 5);
+  const recentContacts = sortedContacts.slice(0, 5);
   const projectsWithImages = projects.filter((p) => p.image).length;
   const projectsWithLinks = projects.filter((p) => p.githubLink).length;
   const contactsWithEmail = contacts.filter((c) => c.email).length;
