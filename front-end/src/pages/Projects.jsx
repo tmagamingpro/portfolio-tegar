@@ -9,6 +9,31 @@ export default function Projects() {
   const [error, setError] = useState(null);
   const [selectedProject, setSelectedProject] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [activeFilter, setActiveFilter] = useState("all");
+
+  const filterOptions = ["html", "react", "java", "javascript", "figma", "php"];
+
+  const normalizeTech = (tech) => {
+    if (!tech) return "";
+    const normalized = tech.toString().trim().toLowerCase();
+    if (normalized.includes("react")) return "react";
+    if (normalized.includes("javascript")) return "javascript";
+    if (normalized === "js") return "javascript";
+    if (normalized.includes("html")) return "html";
+    if (normalized.includes("java") && !normalized.includes("javascript")) return "java";
+    if (normalized.includes("figma")) return "figma";
+    if (normalized.includes("php")) return "php";
+    return normalized;
+  };
+
+  const getProjectTechs = (project) => {
+    const source = Array.isArray(project?.technologies)
+      ? project.technologies
+      : Array.isArray(project?.tech)
+      ? project.tech
+      : [];
+    return source.map(normalizeTech);
+  };
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -48,6 +73,16 @@ export default function Projects() {
     setTimeout(() => setSelectedProject(null), 300);
   };
 
+  const filteredProjects =
+    activeFilter === "all"
+      ? projects
+      : projects.filter((project) => getProjectTechs(project).includes(activeFilter));
+
+  const getFilterCount = (filter) => {
+    if (filter === "all") return projects.length;
+    return projects.filter((project) => getProjectTechs(project).includes(filter)).length;
+  };
+
   return (
     <main className="bg-white min-h-screen">
       <section className="px-4 sm:px-6 md:px-[8%] py-16 sm:py-20">
@@ -57,6 +92,54 @@ export default function Projects() {
         <p className="text-center text-gray-600 mb-8 sm:mb-12 max-w-xl mx-auto pl-4 border-l-4 border-purple-400 text-sm sm:text-base">
           Beberapa projek pribadi dan grup untuk portofolio yang sudah saya kerjakan 
         </p>
+
+        {!loading && !error && projects.length > 0 && (
+          <div className="mb-6 sm:mb-7 max-w-3xl mx-auto">
+            <div className="border-purple-100 rounded-xl p-3 sm:p-3.5">
+              <div className="flex items-center justify-between gap-2 mb-3">
+                {/* <p className="text-xs sm:text-sm font-semibold text-gray-700 tracking-wide uppercase">
+                
+                </p>
+                <span className="text-[11px] sm:text-xs text-gray-600 bg-white border border-purple-100 px-2.5 py-0.5 rounded-full">
+                  {filteredProjects.length} project
+                  {filteredProjects.length !== 1 ? "s" : ""}
+                </span> */}
+              </div>
+
+              <div className="flex flex-wrap gap-1.5 sm:gap-2">
+                {["all", ...filterOptions].map((filter) => {
+                  const isActive = activeFilter === filter;
+                  const count = getFilterCount(filter);
+
+                  return (
+                    <button
+                      key={filter}
+                      onClick={() => setActiveFilter(filter)}
+                      className={`group inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-full text-xs font-semibold border transition-all duration-200 ${
+                        isActive
+                          ? "bg-gradient-to-r from-purple-600 to-pink-500 text-white border-transparent shadow-md shadow-purple-200"
+                          : "bg-white text-gray-700 border-gray-200 hover:border-purple-300 hover:text-purple-600 hover:shadow-sm"
+                      }`}
+                    >
+                      <span className={`${filter === "all" ? "" : "capitalize"}`}>
+                        {filter}
+                      </span>
+                      <span
+                        className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                          isActive
+                            ? "bg-white/20 text-white"
+                            : "bg-gray-100 text-gray-600 group-hover:bg-purple-50 group-hover:text-purple-600"
+                        }`}
+                      >
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+        )}
 
         {loading ? (
           <div className="flex justify-center items-center h-64">
@@ -76,9 +159,9 @@ export default function Projects() {
           <div className="max-w-2xl mx-auto bg-red-50 border-2 border-red-400 p-6 rounded-lg">
             <p className="text-red-700 font-semibold text-sm sm:text-base">Error: {error}</p>
           </div>
-        ) : projects.length > 0 ? (
+        ) : filteredProjects.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-7 max-w-6xl mx-auto">
-            {projects.map((project) => (
+            {filteredProjects.map((project) => (
               <ProjectCard
                 key={project.id}
                 project={project}
@@ -89,7 +172,7 @@ export default function Projects() {
         ) : (
           <div className="text-center py-12">
             <p className="text-gray-600 text-lg">
-              Belum ada project yang ditampilkan.
+              Tidak ada project untuk filter ini.
             </p>
           </div>
         )}
